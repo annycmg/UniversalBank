@@ -16,7 +16,9 @@ router.get('/cliente/:cpf',(req,res) =>{
     }
     //res.json({cpf: req.params.cpf})
 })
-router.route('/testes').get(task.list_all_tasks);
+router.route('/testes')
+    .get(task.list_all_tasks)
+    .post(task.createCliente);
 router.route('/testes/:CPF/:Senha').get(task.read_a_client);
 
 router.get('/clientes',(req,res)=>{

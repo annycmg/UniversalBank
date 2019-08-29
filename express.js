@@ -1,7 +1,7 @@
 const express = require('express')
 //servidor
 const app = express()
-// server para pegar as variaveis de requisição
+// server para pegar as variaveis de requisiï¿½ï¿½o
 const bodyParser = require('body-parser')
 //cria rotas 
 const router = require('./router')
@@ -32,5 +32,12 @@ app.get('/show',(req,res)=>{
 
 //Api
 app.use('/api', router)
+let data =  new Date();
+let dia = ("0"+data.getDate()).slice(-2);
+let mes = ("0" + (data.getMonth() + 1)).slice(-2);
+let ano = data.getFullYear();
+let horas = data.getHours();
+let minutos = data.getMinutes();
+let seconds = data.getSeconds();
 
-app.listen(port, () => console.log('Executando na porta: '+port)) 
+app.listen(port, () => console.log('Executando na porta: '+port+' Tempo: '+dia+'/'+mes+'/'+ano+' '+horas+':'+minutos+':'+seconds)) 
