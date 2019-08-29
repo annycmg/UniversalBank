@@ -19,8 +19,8 @@ Task.getAllClientes = (result)=>{
         }
     })
 }
-Task.getClienteByCpf = (clientId,result)=>{
-    sql.connection.query("Select * from Cliente where cpfCliente = ?", clientId,(err,res)=>{
+Task.getClienteByCpf = (clientId,Senha,result)=>{
+    sql.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?",[clientId,Senha],(err,res)=>{
         if (err) {
             console.log("error: ", err);
             result(err, null);

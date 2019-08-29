@@ -37,7 +37,6 @@ function ExecSqlQueryCliente(sql,res,site) {
             
             
         }
-            
         //connection.end();
         console.log('Realizou consulta no banco.');
     });

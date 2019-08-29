@@ -10,7 +10,7 @@ exports.list_all_tasks = (req,res)=>{
     })
 }
 exports.read_a_client = (req,res)=>{
-    Task.getClienteByCpf(req.params.CPF,(err,task)=>{
+    Task.getClienteByCpf(req.params.CPF,req.params.Senha,(err,task)=>{
         if (err)
             res.send(err);
         res.json(task);

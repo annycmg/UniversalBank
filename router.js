@@ -17,7 +17,7 @@ router.get('/cliente/:cpf',(req,res) =>{
     //res.json({cpf: req.params.cpf})
 })
 router.route('/testes').get(task.list_all_tasks);
-router.route('/testes/:CPF').get(task.read_a_client);
+router.route('/testes/:CPF/:Senha').get(task.read_a_client);
 
 router.get('/clientes',(req,res)=>{
     cmd.execSqlQuery('select * from Cliente',res);
