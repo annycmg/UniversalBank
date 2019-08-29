@@ -43,9 +43,8 @@ Task.createCliente = (newCliente,result)=>{
             if(res.insertId == 0){
                 result(null,'cliente inserido com sucesso!')
             }else{
-                console.log()
+                result(null,'Houve algum problema')
             }
-            console.log('Model - CreateCliente',res)
             result(null,res.idCliente)
         }
     })

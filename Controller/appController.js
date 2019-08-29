@@ -2,7 +2,6 @@ var Task = require('../Model/appModel')
 
 exports.list_all_tasks = (req,res)=>{
     Task.getAllClientes((err,task)=>{
-        console.log('Acessando Controller')
         if(err)
             res.send(err);
         console.log('res',task)
