@@ -14,6 +14,7 @@ const cmd = require('./connect')
 
 //Parte do site
 app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
 app.get('/',(req,res) =>{
     res.render('test.ejs')

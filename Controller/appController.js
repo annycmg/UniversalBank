@@ -8,12 +8,24 @@ exports.list_all_tasks = (req,res)=>{
         res.send(task);
     })
 }
+
 exports.read_a_client = (req,res)=>{
-    Task.getClienteByCpf(req.params.CPF,req.params.Senha,(err,task)=>{
+    var getclient = new Task(req.body)
+    if(getclient.cpfCliente && getclient.senhaCliente)
+    Task.getClienteByCpf(getclient,(err,task)=>{
         if (err)
             res.send(err);
-        res.json(task);
+        
+        if(task.length == 0){
+        console.log('Login incorreto.')
+        res.status(400).send('Login incorreto.')
+        }else{
+            res.status(200).json(task)
+        }
     })
+    else{
+        res.status(400).send('Chamada incorreta')
+    }
 }
 
 exports.createCliente = (req,res) =>{
@@ -23,8 +35,8 @@ exports.createCliente = (req,res) =>{
     }else{
         Task.createCliente(newCliente,(err,task)=>{
             if(err)
-            res.send(err);
-        res.json(task)
+            res.status(400).send(err);
+        //res.json(task)
         })
     }
 }
