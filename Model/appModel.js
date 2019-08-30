@@ -40,12 +40,12 @@ Task.createCliente = (newCliente,result)=>{
             console.log('Error: ',err)
             result(err,null)
         }else{
-            if(res.insertId == 0){
+            if(res.message == ''){
                 result(null,'cliente inserido com sucesso!')
             }else{
-                result(null,'Houve algum problema')
+                result(null,'Houve algum problema' + res.message)
             }
-            result(null,res.idCliente)
+            result(null,res.cpfCliente)
         }
     })
 }

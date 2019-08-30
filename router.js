@@ -16,15 +16,16 @@ router.get('/cliente/:cpf',(req,res) =>{
     }
     //res.json({cpf: req.params.cpf})
 })
-router.route('/testes')
-    .get(task.list_all_tasks)
-    .post(task.createCliente);
-router.route('/cliente')
-.get(task.read_a_client);
+router.route('/clientes')
+    .get(task.list_all_tasks);
 
-router.get('/clientes',(req,res)=>{
-    cmd.execSqlQuery('select * from Cliente',res);
-})
+router.route('/cliente')
+.get(task.read_a_client)
+.post(task.createCliente);
+
+// router.get('/clientes',(req,res)=>{
+//     cmd.execSqlQuery('select * from Cliente',res);
+// })
 
 
 module.exports = router

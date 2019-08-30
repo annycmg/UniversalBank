@@ -30,13 +30,13 @@ exports.read_a_client = (req,res)=>{
 
 exports.createCliente = (req,res) =>{
     var newCliente = new Task(req.body);
-    if(!newCliente.idCliente){
+    if(!newCliente.cpfCliente){
         res.status(400).send({error:true,message:'Erro ao criar usuario.'})
     }else{
         Task.createCliente(newCliente,(err,task)=>{
             if(err)
             res.status(400).send(err);
-        //res.json(task)
+        res.json(task)
         })
     }
 }
