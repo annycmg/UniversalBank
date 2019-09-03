@@ -4,9 +4,9 @@ UniversalBank é um projeto feito em Node.js com HTML,CSS e JavaScript.
 
 ## Depedencias
 
-Necessários: 
-[Node.js](https://nodejs.org/en/) Para rodar o back-end
-[Heroku] (https://devcenter.heroku.com/articles/heroku-cli#download-and-install) para mandar as atualizações para o site
+Necessários:  
+[Node.js](https://nodejs.org/en/) Para rodar o back-end.  
+[Heroku](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) para mandar as atualizações para o site.
 
 ## Usage
 
