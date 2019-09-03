@@ -17,8 +17,9 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
 app.get('/',(req,res) =>{
-    res.render('test.ejs')
+    res.render('index.ejs')
 })
+
 
 app.post('/show',(req,res)=>{
     console.log(req.body)
@@ -28,6 +29,10 @@ app.post('/show',(req,res)=>{
 
 app.get('/show',(req,res)=>{
     res.send('Exibe os clientes;');
+})
+
+app.get('/cadastro',(req,res)=>{
+    res.render('cadastro.ejs')
 })
 //
 

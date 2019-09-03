@@ -1,20 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <title>My CRUD in NodeJS</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <!-- CSS doc link -->
+  <link rel="stylesheet" type="text/css" href="Bootstrap4MainScreen.css">
+
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+    integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+  <title>UniversalBank | Home</title>
+
 </head>
 
 <body>
+  <nav class="navbar navbar-expand-md navbar-dark">
+    <a class="navbar-brand" href="#">UniversalBank</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <!-- this space is proper to add more components to the navbar -->
+        <a href="/cadastro" > <button class="btn btn-outline-light my-2 btn-auto">Cadastro</button></a>
+      </ul>
+      <form class="form-inline my-2 my-lg-0 my-md-0" action="/show" method="POST">
+        <i class="fas fa-user-astronaut mr-sm-4 fa-2x"></i> <!-- Astronaut FontAwesome icon -->
+        <input type="Login" class="form-control mr-sm-2" id="InputLogin" aria-describedby="LoginHelp"
+          placeholder="Login" required="" name="CPF">
+        <input type="password" class="form-control mr-sm-2" id="InputPassword" placeholder="Senha" pattern=".{0}|.{8}"
+          inputmode="numeric" size="20" required title="Insira sua senha de 5 caracteres." name="Senha">
+        <button class="btn btn-outline-light my-2 btn-auto" type="submit">Entrar</button>
+      </form>
+    </div>
+  </nav>
 
-    <h2>Registrar<h2>
-            <form action="/show" method="POST">
-                <input type="text" placeholder="Nome" name="name">
-                <input type="text" placeholder="Sobrenome" name="surname">
-                <button type="submit">Submit</button>
-            </form>
 
+  <section class="container p-4 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5">
+    <div class="row">
+      <div class="col-5" id="headingGroup">
+        <h2>Bem-vindo ao</h2>
+        <h1 class="bank-name">UniversalBank</h1>
+        <button class="btn btn-outline-light my-2" type="submit">Abra a sua Conta!</button>
+        <div class="row justify-content-end">
+          <div class="col-1">
+            <div class="card text-white bg-dark mb-3" style="width: 25rem;">
+              <img class="card-img-top" src="..." alt="">
+              <div class="card-body">
+                <p class="card-text">Baixe o APP e abra sua conta pelo celular!</p><br>
+                <p class="text-center">
+                  <a href="#" class="btn btn-primary btn-custom">
+                    <span class="glyphicon glyphicon-play img-circle text-primary btn-icon"></span>
+                    Go to PlayStore
+                  </a>
+                  <a href="#" class="btn btn-primary btn-custom">
+                    Go to AppleStore
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div class="container">
+    <div id="carouselContent" class="carousel slide" data-ride="carousel">
+      <div id="headingGroup1" class="carousel-inner" role="listbox">
+        <div class="carousel-item active text-center p-2">
+          <p>Gerencie seus gastos Online!</p>
+        </div>
+        <div class="carousel-item text-center p-2">
+          <p>Administre suas despesas com cartão, transferências e mais!</p>
+        </div>
+        <div class="carousel-item text-center p-2">
+          <p>Abra sua conta agora! no App ou na Web.</p>
+        </div>
+        <div class="carousel-item text-center p-2">
+          <p>Faça parte do UniversalBank abrindo a sua conta e utilize nosso Cartão.</p>
+        </div>
+      </div>
+      <a class="carousel-control-next" href="#carouselContent" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
+    </div>
+  </div>
+
+
+
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
 </body>
 
 </html>
