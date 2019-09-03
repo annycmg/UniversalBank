@@ -9,6 +9,9 @@ app.set('view engine', 'ejs')
 //Chamada do Db
 const cmd = require('./connect')
 
+//
+const pessoa =require('./Controller/appController')
+
 //Porta para conectar
  port = process.env.PORT || 3000;
 
@@ -31,9 +34,12 @@ app.get('/show',(req,res)=>{
     res.send('Exibe os clientes;');
 })
 
-app.get('/cadastro',(req,res)=>{
+app.route('/cadastro').get((req,res)=>{
     res.render('cadastro.ejs')
-})
+}).post(pessoa.createPessoa)
+//app.get('/cadastro',(req,res)=>{
+//    res.render('cadastro.ejs')
+//})
 //
 
 //Api

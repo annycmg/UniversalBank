@@ -1,4 +1,5 @@
 var Task = require('../Model/appModel')
+var Pessoa = require('../Model/cadastroModel')
 
 exports.list_all_tasks = (req,res)=>{
     Task.getAllClientes((err,task)=>{
@@ -39,4 +40,31 @@ exports.createCliente = (req,res) =>{
         res.json(task)
         })
     }
+}
+
+//Pessoa Tasks;
+
+exports.createPessoa = (req,res)=>{
+    console.log(req.body)
+    var newPessoa = new Pessoa(req.body);
+    console.log(newPessoa)
+        if(!newPessoa.cpfPessoa){
+            res.status(400).send({error:true,message:'Erro ao criar pessoa.'})
+        }else{
+            Pessoa.createPessoa(newPessoa,(err,pessoa)=>{
+                if(err)
+                res.status(400).send(err);
+                else{
+            res.json(pessoa)}
+            })
+        }
+}
+
+exports.list_all_pessoas = (req,res)=>{
+    Pessoa.getAllPessoas((err,pessoa)=>{
+        if(err)
+            res.send(err);
+        console.log('res',pessoa)
+        res.send(pessoa);
+    })
 }

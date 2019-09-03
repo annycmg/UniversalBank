@@ -3,6 +3,7 @@ const express = require('express')
 const router = express.Router()
 const cmd = require('./connect')
 const task = require('./Controller/appController')
+const pessoa =require('./Controller/appController')
 
 router.use((req,res,next)=>{
     const init = Date.now()
@@ -22,6 +23,10 @@ router.route('/clientes')
 router.route('/cliente')
 .get(task.read_a_client)
 .post(task.createCliente);
+
+router.route('/pessoa')
+.get(pessoa.list_all_pessoas)
+.post(pessoa.createPessoa);
 
 // router.get('/clientes',(req,res)=>{
 //     cmd.execSqlQuery('select * from Cliente',res);
