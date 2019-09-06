@@ -9,8 +9,14 @@ app.set('view engine', 'ejs')
 //Chamada do Db
 const cmd = require('./connect')
 
-//
+//Model Pessoa
 const pessoa =require('./Controller/appController')
+
+//Notify flash
+
+var session = require('express-session');
+var cookieParser = require('cookie-parser');
+var flash = require('connect-flash')
 
 //Porta para conectar
  port = process.env.PORT || 3000;
@@ -19,10 +25,40 @@ const pessoa =require('./Controller/appController')
 app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
-app.get('/',(req,res) =>{
-    res.render('index.ejs')
-})
 
+//Parte de notificação
+app.set('trust proxy', 1)
+//app.use(cookieParser('ub'));
+app.use(session({
+    secret: 'ub',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+}))
+app.use(flash());
+//app.use((req,res,next)=>{
+//    res.locals.success = req.flash('success');
+//    res.locals.errors = req.flash('error');
+//    next();
+//})
+
+
+app.get('/',(req,res) =>{
+    var data ={
+        CPF: req.body.CPF,
+        Senha: req.body.Senha
+    }
+    res.render('index.ejs',data)
+})
+app.post('/',(req,res)=>{
+    if(!req.body.CPF){
+        req.flash('error','Falhou')
+    }else{
+        req.flash('msg', 'Registration successfully');
+        res.locals.messages = req.flash();
+        return res.redirect("/");
+    }
+})
 
 app.post('/show',(req,res)=>{
     console.log(req.body)
