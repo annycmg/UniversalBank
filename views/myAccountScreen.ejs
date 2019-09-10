@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- CDN Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- CDN JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="screens.css">
+
+    <title>Universal | Minha Conta</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">UniversalBank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="line-height:30px; height:30px;" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto pl-5">
+                <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR -->
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Extrato</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Transferência</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Cartão</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Sustentabilidade</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="dashGastosScreen.html">Gerenciamento</a>
+                </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Pagamentos</a>
+                </li>
+            </ul>
+            <button id="exit" class="btn btn-outline-light">Sair</button>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="row pl-4">
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Meu Cartão -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                    <a href="#" class="btn btn-outline-dark card-title" style="color: black; font-weight: 700;">Meu Cartão</a>
+                    <p class="card-text" style="color: black;">Consulte seu limite no cartão, saldo e mais.</p>
+                </div>
+            </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Extrato -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Extrato</a>
+                        <p class="card-text" style="color: black;">Histórico de entrada e saída de dinheiro da sua
+                            conta.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Transferências -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Transferências</a>
+                        <p class="card-text" style="color: black;">Faça transferências sem pagar taxas adicionais.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Sustentabilidade -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Sustentabilidade</a>
+                        <p class="card-text" style="color: black;">Suas contribuições para o meio ambiente com a
+                            UniversalBank.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Gerenciamento Financeiro -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                        <a href="dashGastosScreen.html" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Gerenciamento Financeiro</a>
+                        <p class="card-text" style="color: black;">Saiba como você gasta o dinheiro e gerencie os seus
+                            gastos.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-4 col-md-6 pt-4">
+                <div class="card" style="width: 18rem;">
+                    <!-- Card de Pagamentos -->
+                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <div class="card-body">
+                        <a href="#" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Cotação</a>
+                        <p class="card-text" style="color: black;">Veja a cotação diária do dólar, euro e outras moedas.</p>
+                    </div>
+                </div>
+            </div>
+
+            <p style="color: rgb(17, 17, 71); font-size:10px;">.</p>
+        </div>
+    </div>
+</body>
+
+</html>
