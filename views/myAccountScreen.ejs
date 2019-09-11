@@ -6,6 +6,12 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
     <!-- CDN Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -15,21 +21,19 @@
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
-    <!-- CDN JQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" type="text/css" href="screens.css">
 
-    <title>Universal | Minha Conta</title>
+    <!-- Google font para o UniversalBank -->
+    <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
+
+    <title>UniversalBank | Minha Conta</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">UniversalBank</a>
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive;" 
+        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -38,13 +42,13 @@
             <ul class="navbar-nav mr-auto pl-5">
                 <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR -->
                 <li class="nav-item pl-2">
+                    <a class="nav-link" href="#">Meu Cartão</a>
+                </li>
+                <li class="nav-item pl-2">
                     <a class="nav-link" href="#">Extrato</a>
                 </li>
                 <li class="nav-item pl-2">
                     <a class="nav-link" href="#">Transferência</a>
-                </li>
-                <li class="nav-item pl-2">
-                    <a class="nav-link" href="#">Cartão</a>
                 </li>
                 <li class="nav-item pl-2">
                     <a class="nav-link" href="#">Sustentabilidade</a>
@@ -53,19 +57,38 @@
                     <a class="nav-link" href="dashGastosScreen.html">Gerenciamento</a>
                 </li>
                 <li class="nav-item pl-2">
-                    <a class="nav-link" href="#">Pagamentos</a>
+                    <a class="nav-link" href="#">Cotação</a>
                 </li>
             </ul>
-            <button id="exit" class="btn btn-outline-light">Sair</button>
+            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
         </div>
     </nav>
+
+    <!-- Confirmação que é executada quando clica no botão Sair -->
+    <div class="modal" id="myModal"> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Sair</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                </div>
+                <div class="modal-body" style="color: black;">
+                    <p>Deseja realmente sair?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-secondary">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <div class="row pl-4">
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" id="card-opacity" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Meu Cartão -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-1.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
                     <a href="#" class="btn btn-outline-dark card-title" style="color: black; font-weight: 700;">Meu Cartão</a>
                     <p class="card-text" style="color: black;">Consulte seu limite no cartão, saldo e mais.</p>
@@ -74,9 +97,9 @@
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Extrato -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-2.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
                         <a href="#" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Extrato</a>
@@ -87,9 +110,9 @@
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Transferências -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-3.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
                         <a href="#" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Transferências</a>
@@ -99,9 +122,9 @@
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Sustentabilidade -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-4.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
                         <a href="#" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Sustentabilidade</a>
@@ -112,11 +135,11 @@
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Gerenciamento Financeiro -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-5.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
-                        <a href="dashGastosScreen.html" class="btn btn-outline-dark card-title"
+                        <a href="dashGastosScreen.ejs" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Gerenciamento Financeiro</a>
                         <p class="card-text" style="color: black;">Saiba como você gasta o dinheiro e gerencie os seus
                             gastos.</p>
@@ -125,9 +148,9 @@
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
-                <div class="card" style="width: 18rem;">
+                <div class="card" style="width: 18rem; border-color: black; border-width: 3px;">
                     <!-- Card de Pagamentos -->
-                    <img src="..." class="card-img-top" alt="..." style="height: 13rem;">
+                    <img src="myAccountImages/planet-6.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
                         <a href="#" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Cotação</a>
@@ -135,10 +158,8 @@
                     </div>
                 </div>
             </div>
-
             <p style="color: rgb(17, 17, 71); font-size:10px;">.</p>
         </div>
     </div>
 </body>
-
 </html>
