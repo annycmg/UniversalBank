@@ -26,7 +26,22 @@ app.get('/',(req,res) =>{
 
 app.post('/show',(req,res)=>{
     console.log(req.body)
-    cmd.ExecSqlQueryCliente('select * from Cliente where cpfCliente = \''+req.body.CPF+'\'',res,'show.ejs')
+    cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
+        if (err) {
+            console.log("error: ", err);
+            
+        }
+        else {
+            if (result.length == 0)
+            {
+                res.send('Login/Senha incorreto');
+            }else{
+                res.send('<h1>CPF: ' + req.body.CPF + '</h1></p><h1>Senha: ' + req.body.Senha + '</h1>')
+            }
+
+        }
+    })
+    //cmd.ExecSqlQueryCliente('select * from Cliente where cpfCliente = \''+req.body.CPF+'\'',res,'show.ejs')
     //res.send('<h1>CPF: '+req.body.CPF+'</h1></p><h1>Senha: '+req.body.Senha+'</h1>')
 })
 
