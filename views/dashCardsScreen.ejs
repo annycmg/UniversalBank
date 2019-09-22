@@ -24,12 +24,16 @@
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" type="text/css" href="screens.css">
 
+    <!-- Google font para o UniversalBank -->
+    <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
+
     <title>Gerenciamento financeiro | Cartão</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">UniversalBank</a>
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive;" 
+        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -49,9 +53,28 @@
                     <a class="nav-link" href="dashGastosScreen.html">Gastos Gerais</a>
                 </li>
             </ul>
-            <button id="exit" class="btn btn-outline-light">Sair</button>
+            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
         </div>
     </nav>
+
+    <!-- Confirmação que é executada quando clica no botão Sair -->
+    <div class="modal" id="myModal"> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Sair</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                </div>
+                <div class="modal-body" style="color: black;">
+                    <p>Deseja realmente sair?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-secondary">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="heading">
         [Nome], consulte os seus gastos durante o ano com o cartão UniversalBank.
