@@ -20,11 +20,11 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
 app.get('/',(req,res) =>{
-    res.render('myAccountScreen.ejs')
+    res.render('index.ejs')
 })
 
 
-app.post('/show',(req,res)=>{
+app.post('/home',(req,res)=>{
     console.log(req.body)
     cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
         if (err) {
@@ -34,9 +34,10 @@ app.post('/show',(req,res)=>{
         else {
             if (result.length == 0)
             {
-                res.send('Login/Senha incorreto');
+                res.render('login.ejs',{message:'Login/Senha incorreto' });
             }else{
-                res.send('<h1>CPF: ' + req.body.CPF + '</h1></p><h1>Senha: ' + req.body.Senha + '</h1>')
+                res.render('myAccountScreen.ejs')
+                //res.send('<h1>CPF: ' + req.body.CPF + '</h1></p><h1>Senha: ' + req.body.Senha + '</h1>')
             }
 
         }
