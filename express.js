@@ -20,7 +20,7 @@ app.use(bodyParser.urlencoded({extended:true}))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
 app.get('/',(req,res) =>{
-    res.render('index.ejs')
+    res.render('myAccountScreen.ejs')
 })
 
 

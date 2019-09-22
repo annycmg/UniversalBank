@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <!-- HighCharts script source-->
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/highcharts-3d.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+
+    <!-- CDN Bootstrap-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- CDN JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- CDN JQuery -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+    <!-- Link para o arquivo CSS -->
+    <link rel="stylesheet" type="text/css" href="screens.css">
+
+    <!-- Google font para o UniversalBank -->
+    <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
+
+    <title>Gerenciamento financeiro | Gastos Gerais</title>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive;" 
+        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="line-height:30px; height:30px;" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto pl-5">
+            <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR -->
+                <li class="nav-item">
+                    <a class="nav-link active" href="myAccountScreen.html">HOME<span class="sr-only">(current)</span></a>
+                </li> 
+                <li class="nav-item">
+                    <a class="nav-link" href="dashCardsScreen.html">Cartão</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="dashTransfScreen.html">Transferências</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Gastos Gerais<span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
+        </div>
+    </nav>
+
+    <!-- Confirmação que é executada quando clica no botão Sair -->
+    <div class="modal" id="myModal"> 
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" style="color: black;">Sair</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                </div>
+                <div class="modal-body" style="color: black;">
+                    <p>Deseja realmente sair?</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
+                    <button type="button" class="btn btn-secondary">Sim</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="heading">
+        [Nome], veja neste gráfico com o que você mais gasta no dia-a-dia.
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="container3"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+    // CONSTRUÇÃO DO CHART
+    Highcharts.chart('container3', {
+        chart: {
+            plotBackgroundColor: null,
+            plotBorderWidth: null,
+            plotShadow: false,
+            type: 'pie',
+            stacking: 'normal',
+            borderRadius: 15
+        },
+        title: {
+            text: 'Tipos de gastos via cartão e transferências'
+        },
+        tooltip: {
+            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        },
+        plotOptions: {
+            pie: {
+                allowPointSelect: true,
+                cursor: 'pointer',
+                dataLabels: {
+                    enabled: true,
+                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+                    connectorColor: 'silver'
+                }
+            }
+        },
+        series: [{
+            name: '',
+            data: [
+                { name: 'Estudos', y: 61.41 },
+                { name: 'Vestuário', y: 11.84 },
+                { name: 'Alimentação', y: 10.85 },
+                { name: 'Transporte', y: 4.67 },
+                { name: 'Saúde', y: 4.18 },
+                { name: 'Entretenimento', y: 7.05 }
+            ]
+        }]
+    });
+    </script>
+</body>
+</html>
