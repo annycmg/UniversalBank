@@ -24,7 +24,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 
     <!-- Link para o arquivo CSS -->
-    <link rel="stylesheet" type="text/css" href="screens.css">
+    <link rel="stylesheet" type="text/css" href="/screens.css">
 
     <!-- Google font para o UniversalBank -->
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
@@ -33,8 +33,9 @@
 </head>
 
 <body>
-  	<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    	<a class="navbar-brand" style="font-family: 'Condiment', cursive;" 
+  	<nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size:22px;"
+        href="/home/dashTransf" 
         href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
       	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         	<span class="navbar-toggler-icon"></span>
@@ -43,16 +44,16 @@
         	<ul class="navbar-nav mr-auto pl-5">
             <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR  --> 
                 <li class="nav-item">
-                    <a class="nav-link active" href="myAccountScreen.ejs">HOME<span class="sr-only">(current)</span></a>
+                    <a class="nav-link active" href="/home">HOME<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashCardsScreen.ejs">Cartão</a>
+                    <a class="nav-link" href="/home/dashCards">Cartão</a>
                 </li>
                 <li class="nav-item active">
                     <a class="nav-link" href="#">Transferências<span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="dashGastosScreen.ejs">Gastos Gerais</a>
+                    <a class="nav-link" href="/home/dashGastos">Gastos Gerais</a>
                 </li>
             </ul>
             <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
@@ -72,14 +73,14 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-secondary">Sim</button>
+                    <a href="/"><button type="button" class="btn btn-secondary">Sim</button></a>
                 </div>
             </div>
         </div>
     </div>
     
 
-    <div class="heading">
+    <div class="heading pb-1 pt-2">
         [Nome], confira suas transferências feitas durante o ano.
     </div>
 
@@ -88,8 +89,8 @@
             <div class="col-md-12">
                 <div id="container4"></div>
                 <p style="color: rgb(17, 17, 71); font-size:1px;">.</p>
-                <button id="inverted" class="btn btn-outline-light">Inverted</button>
-                <button id="plain" class="btn btn-outline-light">Plain</button>
+                <button id="inverted" class="btn btn-outline-light mb-3">Inverted</button>
+                <button id="plain" class="btn btn-outline-light mb-3">Plain</button>
             </div>
         </div>
     </div>

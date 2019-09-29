@@ -1,26 +1,50 @@
-body{
+body{ /* Background e cor da fonte para todas as telas */
     background-color:rgb(17, 17, 71);
     color: whitesmoke;
 }
 
-.heading{
+.heading{ /* Cabeçalhos tela de dashboard */
     margin-top: 1.5%;
     margin-left: 9%;
     margin-right: 3%;
     margin-bottom: -2%;
     font-size: 1.5rem;
-    text-shadow: 0px 2px 3px rgb(0, 0.3, 0.15);
+    text-shadow: 0px 2px 3px rgb(0, 0.5, 0.35),
+                 0px 8px 13px rgb(0,0,0);
 }
 
-#container4 {
+#container4 { /* Dashboard de transferência */
 	min-width: 320px;
 	max-width: 1110px;
-	margin: 0 auto;
+    margin: 0 auto;
 }
 
-#container1 { margin-bottom: 3%; }
+#container1 { /* Dashboard de Débito */
+    margin-bottom: 3%;
+}
+
+#container1, #container2, #container3, #container4, .card, .form-control, .login-card { /* Dashboards de Crébito/Débito, transf, gastos, cards da myAccountScreen e form da tela cadastro */
+    box-shadow: 0px 2px 3px rgb(0,0,0),
+				 0px 8px 13px rgb(0,0,0),
+				 0px 18px 23px rgba(0,0, 0.10); 
+}
 
 #card { margin-top: 2%; }
+
+.bank-name{ font-size: 70px; padding-top: 3%; } /* index */
+
+.body-login, .navbar-brand{  /* tela de login em index.ejs e logo da UniversalBank */
+    text-shadow: 0px 2px 3px rgb(0,0,0),
+				 0px 8px 13px rgb(0,0,0),
+				 0px 18px 23px rgba(0,0, 0.37);
+}
+
+.login-card {  /* card dentro da tela de logim em index.ejs */
+    border-color: black; 
+    border-width: 2px;
+}
+
+
 
 
 

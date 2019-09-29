@@ -53,10 +53,26 @@ app.get('/show',(req,res)=>{
 app.route('/cadastro').get((req,res)=>{
     res.render('cadastro.ejs')
 }).post(pessoa.createPessoa)
-//app.get('/cadastro',(req,res)=>{
+
+// app.get('/cadastro',(req,res)=>{
 //    res.render('cadastro.ejs')
-//})
-//
+// })
+
+app.route('/home/dashGastos').get((req,res)=>{
+    res.render('dashGastosScreen.ejs')
+})
+
+app.route('/home/dashCards').get((req,res)=>{
+    res.render('dashCardsScreen.ejs')
+})
+
+app.route('/home/dashTransf').get((req,res)=>{
+    res.render('dashTransfScreen.ejs')
+})
+
+app.route('/home').get((req,res)=>{
+    res.render('myAccountScreen.ejs')
+})
 
 //Api
 app.use('/api', router)

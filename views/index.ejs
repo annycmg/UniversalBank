@@ -11,30 +11,33 @@
     integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <!-- CSS doc link -->
-  <link rel="stylesheet" type="text/css" href="Bootstrap4MainScreen.css">
+  <link rel="stylesheet" type="text/css" href="/screens.css">
 
   <!-- Font Awesome CDN -->
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
     integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
-  <title>UniversalBank | Home</title>
+  <!-- Google font para o UniversalBank -->
+  <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
 
+  <title>UniversalBank | Home</title>
 </head>
 
-<body>
+<body class="body-login">
   <nav class="navbar navbar-expand-md navbar-dark">
-    <a class="navbar-brand" href="#">UniversalBank</a>
+    <a class="navbar-brand pt-2" style="font-family: 'Condiment', cursive; font-size: 22px;" 
+    href="/"
+    href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse" style="line-height: 30px; height: 30px;" id="navbarSupportedContent">
       <ul class="navbar-nav mr-auto">
-        <!-- this space is proper to add more components to the navbar -->
-        <a href="/cadastro" > <button class="btn btn-outline-light my-2 btn-auto">Cadastro</button></a>
+        <!-- adicionar componentes ao navbar -->
       </ul>
       <form class="form-inline my-2 my-lg-0 my-md-0" action="/home" method="POST">
-        <i class="fas fa-user-astronaut mr-sm-4 fa-2x"></i> <!-- Astronaut FontAwesome icon -->
+        <i class="fas fa-user-astronaut mr-sm-4 fa-2x pb-2 pt-2"></i> <!-- Astronaut FontAwesome icon -->
         <input type="Login" class="form-control mr-sm-2" id="InputLogin" aria-describedby="LoginHelp"
           placeholder="Login" required="" name="CPF">
         <input type="password" class="form-control mr-sm-2" id="InputPassword" placeholder="Senha"
@@ -48,34 +51,30 @@
   <section class="container p-4 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5">
     <div class="row">
       <div class="col-5" id="headingGroup">
-        <h2>Bem-vindo ao</h2>
-        <h1 class="bank-name">UniversalBank</h1>
-        <button class="btn btn-outline-light my-2" type="submit">Abra a sua Conta!</button>
-        <div class="row justify-content-end">
-          <div class="col-1">
-            <div class="card text-white bg-dark mb-3" style="width: 25rem;">
-              <img class="card-img-top" src="..." alt="">
-              <div class="card-body">
-                <p class="card-text">Baixe o APP e abra sua conta pelo celular!</p><br>
-                <p class="text-center">
-                  <a href="#" class="btn btn-primary btn-custom">
-                    <span class="glyphicon glyphicon-play img-circle text-primary btn-icon"></span>
-                    Go to PlayStore
-                  </a>
-                  <a href="#" class="btn btn-primary btn-custom">
-                    Go to AppleStore
-                  </a>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+        <h2 class="pb-1 pt-3" style="font-size: 22px;">Bem-vindo ao</h2>
+        <h1 class="bank-name" style="font-family: 'Condiment', cursive; font-size: 59px;" 
+        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</h1>
+        <a href="/cadastro"><button class="btn btn-outline-light my-2" type="submit">Abra a sua Conta!</button></a>
       </div>
     </div>
   </section>
 
+  <div class="row justify-content-center col-lg-12 col-sm-4 pb-4">
+    <div class="login-card card text-white bg-dark ml-4" style="width: 22rem; height: 12.5rem;">
+      <div class="card-body">
+        <p class="card-text pt-1">Baixe o APP e abra sua conta pelo celular!</p><br>
+        <p class="text-center">
+          <a href="#" class="btn btn-primary btn-custom">
+            <span class="glyphicon glyphicon-play img-circle text-primary btn-icon mr-2"></span>
+            Go to PlayStore
+          </a>
+          <a href="#" class="btn btn-primary btn-custom">Go to AppleStore</a>
+        </p>
+      </div>
+    </div>
+  </div>
 
-  <div class="container">
+  <div class="container pt-4" style="font-size: 22px;">
     <div id="carouselContent" class="carousel slide" data-ride="carousel">
       <div id="headingGroup1" class="carousel-inner" role="listbox">
         <div class="carousel-item active text-center p-2">
@@ -98,8 +97,6 @@
     </div>
   </div>
 
-
-
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -112,5 +109,4 @@
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 </body>
-
 </html>

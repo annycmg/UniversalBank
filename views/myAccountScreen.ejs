@@ -22,7 +22,7 @@
         crossorigin="anonymous"></script>
 
     <!-- Link para o arquivo CSS -->
-    <link rel="stylesheet" type="text/css" href="screens.css">
+    <link rel="stylesheet" type="text/css" href="/screens.css">
 
     <!-- Google font para o UniversalBank -->
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
@@ -31,8 +31,9 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" style="font-family: 'Condiment', cursive;" 
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size: 22px;" 
+        href="/home"
         href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -54,7 +55,7 @@
                     <a class="nav-link" href="#">Sustentabilidade</a>
                 </li>
                 <li class="nav-item pl-2">
-                    <a class="nav-link" href="dashGastosScreen.ejs">Gerenciamento</a>
+                    <a class="nav-link" href="/home/dashGastos">Gerenciamento</a>
                 </li>
                 <li class="nav-item pl-2">
                     <a class="nav-link" href="#">Cotação</a>
@@ -77,7 +78,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                    <button type="button" class="btn btn-secondary">Sim</button>
+                    <a href="/"><button type="button" class="btn btn-secondary">Sim</button></a>
                 </div>
             </div>
         </div>
@@ -140,7 +141,7 @@
                     <!-- Card de Gerenciamento Financeiro -->
                     <img src="myAccountImages/planet-5.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
-                        <a href="dashGastosScreen.ejs" class="btn btn-outline-dark card-title"
+                        <a href="/home/dashGastos" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Gerenciamento Financeiro</a>
                         <p class="card-text" style="color: black;">Saiba como você gasta o dinheiro e gerencie os seus
                             gastos.</p>

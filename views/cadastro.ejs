@@ -3,10 +3,12 @@
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-	<title>Universal Bank</title>	
+	<title>Universal Bank | Cadastro</title>	
 
 	<!-- Scripts externos para validação do jquery e Bootstrap	-->
 	<link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+	<link rel="stylesheet" type="text/css" href="/screens.css">
+
 	<script type="text/javascript" src="js/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/jquery.mask.min.js"></script>
@@ -14,7 +16,11 @@
 	<script type="text/javascript" src="js/additional-methods.min.js"></script>
 	<!-- <script type="text/javascript" src="js/localization/messages_pt_BR.js"></script>-->
 	
-	<script type="text/javascript">
+	<!-- Google font para o UniversalBank -->
+	<link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
+
+
+	<script class="cadastro" type="text/javascript">
 		$(document).ready(function(){
 			$("#cpfPessoa").mask("000.000.000-00")
 			$("#telefonePessoa").mask("(00) 0000-0000")
@@ -40,19 +46,18 @@
 				}
 			})
 		})
-
-
 	</script>
-
 </head>
 
 
 <body>
-	
-	<div class="container">
-		
+	<nav class="navbar navbar-expand-md navbar-dark">
+		<a class="navbar-brand pt-2" style="font-family: 'Condiment', cursive; font-size: 22px;"
+		href="/" 
+		href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
+	 </nav>
+	<div class="container pt-5 pb-5">
 		<form name="formulario" method="post" onsubmit="return confirmacao()">
-
 			<div class="form-group">
 				<label>Nome Completo</label>
 				<input type="text" name="nomePessoa" id="nomePessoa" class="form-control" />
@@ -70,7 +75,6 @@
 				<label>RG</label>
 				<input type="text" name="rgPessoa" id="rgPessoa" class="form-control"/>
 			</div>
-
 			<div class="form-group">
 				<label>Telefone</label>
 				<input type="text" name="telefonePessoa" id="telefonePessoa" class="form-control"/>
@@ -84,19 +88,14 @@
 				<label>Genero</label>
 				<input type="text" name="generoPessoa" id="generoPessoa" class="form-control"/>
 			</div>
-
 			<div class="form-group">
 				<label>Salário</label>
 				<input type="text" name="salarioPessoa" id="salarioPessoa" class="form-control"/>
 			</div>
-
-
 			<div class="form-group">
 				<label>Endereço</label>
 				<input type="text" name="enderecoPessoa"  class="form-control"/>
 			</div>
-
-
 			<div class="form-group">
 				<label>CEP</label>
 				<input type="text" name="cepPessoa" id="cepPessoa" class="form-control"/>
@@ -106,18 +105,10 @@
 				<label>Data de Nascimento</label>
 				<input type="text" name="dataNascimentoPessoa" id="dataNascimentoPessoa" class="form-control" />
 			</div>
-
-			
 			<div class="row">
-				<input type="submit" class="btn btn-primary form-control" />
+				<input type="submit" class="btn btn-primary form-control mt-3 ml-3" style="max-width: 325px;" />
 			</div>
-
-
-
-
 		</form>
-
 	</div>
-
 </body>
 </html>
