@@ -23,13 +23,11 @@ app.get('/',(req,res) =>{
     res.render('index.ejs')
 })
 
-
 app.post('/home',(req,res)=>{
     console.log(req.body)
     cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
         if (err) {
-            console.log("error: ", err);
-            
+            console.log("error: ", err);     
         }
         else {
             if (result.length == 0)
@@ -74,6 +72,9 @@ app.route('/home').get((req,res)=>{
     res.render('myAccountScreen.ejs')
 })
 
+app.route('/home/sustentabScreen').get((req,res)=>{
+    res.render('sustentabScreen.ejs')
+})
 //Api
 app.use('/api', router)
 let data =  new Date();
