@@ -75,6 +75,10 @@ app.route('/home').get((req,res)=>{
 app.route('/home/sustentabScreen').get((req,res)=>{
     res.render('sustentabScreen.ejs')
 })
+
+app.route('/home/transfScreen').get((req,res)=>{
+    res.render('transfScreen.ejs')
+})
 //Api
 app.use('/api', router)
 let data =  new Date();

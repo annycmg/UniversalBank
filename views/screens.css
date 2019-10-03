@@ -10,7 +10,8 @@ body{ /* Background e cor da fonte para todas as telas */
     margin-bottom: -2%;
     font-size: 1.5rem;
     text-shadow: 0px 2px 3px rgb(0, 0.5, 0.35),
-                 0px 8px 13px rgb(0,0,0);
+                 0px 8px 13px rgb(0,0,0),
+                 0px 18px 23px rgba(0,0, 0.10); 
 }
 
 #container4 { /* Dashboard de transferência */
