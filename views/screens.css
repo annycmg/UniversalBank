@@ -34,7 +34,7 @@ body{ /* Background e cor da fonte para todas as telas */
 
 .bank-name{ font-size: 70px; padding-top: 3%; } /* index */
 
-.body-login, .navbar-brand{  /* tela de login em index.ejs e logo da UniversalBank */
+.body-login, .navbar-brand, .fatura-past{  /* tela de login em index.ejs e logo da UniversalBank */
     text-shadow: 0px 2px 3px rgb(0,0,0),
 				 0px 8px 13px rgb(0,0,0),
 				 0px 18px 23px rgba(0,0, 0.37);
@@ -44,6 +44,17 @@ body{ /* Background e cor da fonte para todas as telas */
     border-color: black; 
     border-width: 2px;
 }
+
+.icon-mastercard { 
+    margin-left: 130px;
+    margin-top: -15px;
+}
+
+.limit, .fatura{
+    font-size: 20px;
+}
+
+.value {font-size: 18px; color: green;}
 
 
 
