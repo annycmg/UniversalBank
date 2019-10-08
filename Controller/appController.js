@@ -28,6 +28,23 @@ exports.read_a_client = (req,res)=>{
         res.status(400).send('Chamada incorreta')
     }
 }
+exports.read_a_clientId = (req,res)=>{
+    var getclient = new Task(req.body)
+    if(getclient.idCliente)
+    Task.getClienteById(getclient,(err,task)=>{
+        if (err)
+            res.send(err);
+        if(task.length == 0){
+        console.log('Id incorreto.')
+        res.status(400).send('Id incorreto.')
+        }else{
+            res.render(req.body.render,{ message: task[0].nomeCliente })
+        }
+    })
+    else{
+        res.status(400).send('Chamada incorreta')
+    }
+}
 
 exports.createCliente = (req,res) =>{
     var newCliente = new Task(req.body);

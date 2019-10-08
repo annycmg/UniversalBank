@@ -12,6 +12,7 @@ const cmd = require('./connect')
 
 //
 const pessoa = require('./Controller/appController')
+const task = require('./Controller/appController')
 
 //Porta para conectar
 port = process.env.PORT || 3000;
@@ -142,9 +143,15 @@ app.route('/home').get((req, res) => {
     res.render('myAccountScreen.ejs')
 })
 
-app.route('/home/sustentabScreen').get((req, res) => {
-    res.render('sustentabScreen.ejs')
+app.get('/home/sustentabScreen',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'sustentabScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
+
 })
+
 
 app.route('/home/transfScreen').get((req, res) => {
     res.render('transfScreen.ejs')

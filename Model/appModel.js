@@ -33,6 +33,18 @@ Task.getClienteByCpf = (client,result)=>{
         }
     })
 }
+Task.getClienteById = (client,result)=>{
+    sql.connection.query("Select * from Cliente where idCliente = ?",[client.idCliente],(err,res)=>{
+        if (err) {
+            console.log("error: ", err);
+            result(err, null);
+        }
+        else {
+            result(null, res);
+
+        }
+    })
+}
 
 Task.createCliente = (newCliente,result)=>{
     sql.connection.query("insert into Cliente set ?",newCliente,(err,res)=>{
