@@ -11,8 +11,8 @@ Necessários:
 ## Usage
 
 Para modificação da parte de front-end, só mexa na pasta VIEWS e não modifique os atributos name e metodos do form.
-Para mandar atualização para o heroku: siga os sequintes passos:
--> 
+Para mandar atualização para o heroku: siga os sequintes passos: depois de realizar o commit, execute o seguinte comando:   
+`git push heroku master`
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
