@@ -1,4 +1,5 @@
 const express = require('express')
+const session = require('express-session')
 //servidor
 const app = express()
 // server para pegar as variaveis de requisi��o
@@ -10,45 +11,114 @@ app.set('view engine', 'ejs')
 const cmd = require('./connect')
 
 //
-const pessoa =require('./Controller/appController')
+const pessoa = require('./Controller/appController')
 
 //Porta para conectar
- port = process.env.PORT || 3000;
+port = process.env.PORT || 3000;
+
+//
+const {
+    SESS_LIFETIME = 1000 * 60 * 60 * 1,
+    NODE_ENV = 'development',
+    SESS_NAME = 'sid',
+    SESS_SECRET = 'UniversalBank'
+} = process.env
+
+const IN_PROD = NODE_ENV ==='home'
+
+const redirectLogin = (req, res, next) => {
+    
+    if (!req.session.userId) {
+        res.redirect('/')
+    } else {
+        next()
+    }
+}
+const redirectHome = (req, res, next) => {
+    console.log('userId: ' + req.session.userId)
+    if (req.session.userId) {
+        res.redirect('/home')
+    } else {
+        next()
+    }
+}
+
 
 //Parte do site
-app.use(bodyParser.urlencoded({extended:true}))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(__dirname + '/views'));
-app.get('/',(req,res) =>{
-    res.render('index.ejs')
+app.use(session({
+    name: SESS_NAME,
+    resave: false,
+    saveUninitialized: false,
+    secret: SESS_SECRET,
+
+    cookie: {
+        maxAge: SESS_LIFETIME,
+        sameSite: true,
+        secure: IN_PROD
+    }
+}))
+
+
+app.use((req,res,next)=>{
+    const {userId} = req.session
+    if(userId){
+        res.locals.user = userId
+    }
+    next()
 })
 
-app.post('/home',(req,res)=>{
+
+app.get('/', redirectHome, (req, res) => {
+    console.log(req.session)
+    const { userId } = req.session
+    res.render('index.ejs')
+})
+app.post('/',(req,res)=>{
+    req.session.destroy(err=>{
+        if(err){
+            console.log(err)
+            return res.redirect('/home')
+        }
+        res.clearCookie(SESS_NAME)
+        res.redirect('/')
+    })
+})
+app.get('/home', redirectLogin, (req, res) => {
+    const {user} = res.locals
+    console.log('user: '+user)
+    res.render('myAccountScreen.ejs')
+})
+
+app.post('/home', (req, res) => {
     console.log(req.body)
+    // req.session.userId = 
+
     cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
         if (err) {
-            console.log("error: ", err);     
+            console.log("error: ", err);
         }
         else {
-            if (result.length == 0)
-            {
-                res.render('login.ejs',{message:'Login/Senha incorreto' });
-            }else{
+            if (result.length == 0) {
+                res.render('login.ejs', { message: 'Login/Senha incorreto' });
+            } else {
+                req.session.userId = result[0].idCliente
+                console.log(result[0].idCliente)
                 res.render('myAccountScreen.ejs')
-                //res.send('<h1>CPF: ' + req.body.CPF + '</h1></p><h1>Senha: ' + req.body.Senha + '</h1>')
+                console.log(req.session)
             }
 
         }
     })
-    //cmd.ExecSqlQueryCliente('select * from Cliente where cpfCliente = \''+req.body.CPF+'\'',res,'show.ejs')
-    //res.send('<h1>CPF: '+req.body.CPF+'</h1></p><h1>Senha: '+req.body.Senha+'</h1>')
 })
 
-app.get('/show',(req,res)=>{
+app.get('/show', (req, res) => {
     res.send('Exibe os clientes;');
 })
 
-app.route('/cadastro').get((req,res)=>{
+app.route('/cadastro').get((req, res) => {
     res.render('cadastro.ejs')
 }).post(pessoa.createPessoa)
 
@@ -56,41 +126,41 @@ app.route('/cadastro').get((req,res)=>{
 //    res.render('cadastro.ejs')
 // })
 
-app.route('/home/dashGastos').get((req,res)=>{
+app.route('/home/dashGastos').get((req, res) => {
     res.render('dashGastosScreen.ejs')
 })
 
-app.route('/home/dashCards').get((req,res)=>{
+app.route('/home/dashCards').get((req, res) => {
     res.render('dashCardsScreen.ejs')
 })
 
-app.route('/home/dashTransf').get((req,res)=>{
+app.route('/home/dashTransf').get((req, res) => {
     res.render('dashTransfScreen.ejs')
 })
 
-app.route('/home').get((req,res)=>{
+app.route('/home').get((req, res) => {
     res.render('myAccountScreen.ejs')
 })
 
-app.route('/home/sustentabScreen').get((req,res)=>{
+app.route('/home/sustentabScreen').get((req, res) => {
     res.render('sustentabScreen.ejs')
 })
 
-app.route('/home/transfScreen').get((req,res)=>{
+app.route('/home/transfScreen').get((req, res) => {
     res.render('transfScreen.ejs')
 })
 
-app.route('/home/myCardScreen').get((req,res)=>{
+app.route('/home/myCardScreen').get((req, res) => {
     res.render('myCardScreen.ejs')
 })
 //Api
 app.use('/api', router)
-let data =  new Date();
-let dia = ("0"+data.getDate()).slice(-2);
+let data = new Date();
+let dia = ("0" + data.getDate()).slice(-2);
 let mes = ("0" + (data.getMonth() + 1)).slice(-2);
 let ano = data.getFullYear();
 let horas = data.getHours();
 let minutos = data.getMinutes();
 let seconds = data.getSeconds();
 
-app.listen(port, () => console.log('Executando na porta: '+port+' Tempo: '+dia+'/'+mes+'/'+ano+' '+horas+':'+minutos+':'+seconds)) 
+app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds)) 
