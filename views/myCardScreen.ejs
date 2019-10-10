@@ -57,7 +57,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                    <a href="/"><button type="button" class="btn btn-secondary">Sim</button></a>
+                    <form action="/" method="POST">
+                        <button class="btn btn-secondary" type="submit">Sim</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -76,7 +78,7 @@
                 <div class="card mt-1 mb-4" style="width:21rem; height:13.5rem; background-color: rgb(36, 32, 32);">
                     <p class="navbar-brand ml-3 mt-3" style="font-family: 'Condiment', cursive; font-size: 20px;" href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</p>
                     <p class="card-number ml-3 mt-5 mb-1" style="font-family: 'PT Mono', monospace; font-size: 17px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">1234 5678 9101 2345</p>
-                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">MARIA DA SILVA</p>   
+                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap"><%= message %></p>   
                     <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">VALID: 11/2026<img class="icon-mastercard" src="https://img.icons8.com/color/48/000000/mastercard-logo.png"></p>   
                 </div>
             </div>

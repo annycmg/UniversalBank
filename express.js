@@ -127,8 +127,12 @@ app.route('/cadastro').get((req, res) => {
 //    res.render('cadastro.ejs')
 // })
 
-app.route('/home/dashGastos').get((req, res) => {
-    res.render('dashGastosScreen.ejs')
+app.get('/home/dashGastos',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'dashGastosScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
 })
 
 app.route('/home/dashCards').get((req, res) => {
@@ -157,8 +161,12 @@ app.route('/home/transfScreen').get((req, res) => {
     res.render('transfScreen.ejs')
 })
 
-app.route('/home/myCardScreen').get((req, res) => {
-    res.render('myCardScreen.ejs')
+app.get('/home/myCardScreen',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'myCardScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
 })
 //Api
 app.use('/api', router)
