@@ -135,12 +135,22 @@ app.get('/home/dashGastos',redirectLogin,(req, res) => {
     }
 })
 
-app.route('/home/dashCards').get((req, res) => {
-    res.render('dashCardsScreen.ejs')
+app.get('/home/dashCards',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'dashCardsScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
+
 })
 
-app.route('/home/dashTransf').get((req, res) => {
-    res.render('dashTransfScreen.ejs')
+app.get('/home/dashTransf',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'dashTransfScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
+
 })
 
 app.route('/home').get((req, res) => {

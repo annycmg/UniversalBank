@@ -71,7 +71,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Não</button>
-                    <a href="/"><button type="button" class="btn btn-secondary">Sim</button></a>
+                    <form action="/" method="POST">
+                        <button class="btn btn-secondary" type="submit">Sim</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -79,7 +81,7 @@
     
 
     <div class="heading pb-4 pt-3">
-        [Nome], consulte os seus gastos durante o ano com o cartão UniversalBank.
+        <%= message %>, consulte os seus gastos durante o ano com o cartão UniversalBank.
     </div>
 
     <div class="container mt-5">

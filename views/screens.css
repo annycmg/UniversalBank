@@ -40,7 +40,7 @@ body{ /* Background e cor da fonte para todas as telas */
 				 0px 18px 23px rgba(0,0, 0.37);
 }
 
-.login-card {  /* card dentro da tela de logim em index.ejs */
+.login-card, .card-screen {  /* card dentro da tela de logim em index.ejs */
     border-color: black; 
     border-width: 2px;
 }
