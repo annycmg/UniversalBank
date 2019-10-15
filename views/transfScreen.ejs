@@ -25,14 +25,20 @@
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
 
 
-	<script class="transfScreen" type="text/javascript">
-		$(document).ready(function(){
-			$("#cpfPessoa").mask("000.000.000-00")
-			$("#salarioPessoa").mask("9.990,99", {reverse: true})
-            $("#numAgencia").mask("0000")
-            $("#numConta").mask("00000-0")
-		})
-	</script>
+	<script type="text/javascript">
+        function formatar(mascara, documento){
+          var i = documento.value.length;
+          var saida = mascara.substring(0,1);
+          var texto = mascara.substring(i)
+          
+          if (texto.substring(0,1) != saida){
+                    documento.value += texto.substring(0,1);
+          }
+          
+        }
+
+        
+    </script>
 </head>
 
 <body>
@@ -82,32 +88,32 @@
         <form name="formulario" method="post" onsubmit="return confirmacao()">
             <div class="form-group">
 				<label>Nome do Banco</label>
-				<input type="text" name="nomeBanco" id="nomeBanco" class="form-control" />
+				<input type="text" name="nomeBanco" id="nomeBanco" class="form-control" maxlength="15"/>
             </div>
             
             <div class="form-group">
 				<label>Agência</label>
-				<input type="text" name="numAgencia" id="numAgencia" class="form-control"/>
+				<input type="text" name="numAgencia" id="numAgencia" class="form-control" maxlength="4" onkeypress="formatar('####',this)"/>
             </div>
             
             <div class="form-group">
 				<label>Conta</label>
-				<input type="text" name="numConta" id="numConta" class="form-control"/>
+				<input type="text" name="numConta" id="numConta" class="form-control" maxlength="7" onkeypress="formatar('#####-#',this)"/>
             </div>
             
             <div class="form-group">
 				<label>CPF</label>
-				<input type="text" name="cpfPessoa" id="cpfPessoa" class="form-control" />
+				<input type="text" name="cpfPessoa" id="cpfPessoa" class="form-control" maxlength="14" onkeypress="formatar('###.###.###-##',this)"/>
 			</div>
 
 			<div class="form-group">
 				<label>Nome Completo</label>
-				<input type="text" name="nomePessoa" id="nomePessoa" class="form-control" />
+				<input type="text" name="nomePessoa" id="nomePessoa" class="form-control" maxlength="40"/>
 			</div>
 
 			<div class="form-group">
 				<label>Valor (R$)</label>
-				<input type="text" name="transfValor" id="transfValor" class="form-control"/>
+				<input type="text" name="transfValor" id="transfValor" class="form-control" maxlength="7" onkeypress="formatar('######',this)"/>
 			</div>
 			
 			<div class="row">
