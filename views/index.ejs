@@ -23,13 +23,13 @@
   <title>UniversalBank | Home</title>
 </head>
 
+
 <body class="body-login">
   <nav class="navbar navbar-expand-md navbar-dark">
-    <a class="navbar-brand pt-2" style="font-family: 'Condiment', cursive; font-size: 22px;" 
-    href="/"
-    href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
+    <a class="navbar-brand pt-2" style="font-family: 'Condiment', cursive; font-size: 22px;" href="/"
+      href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-    aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
+      aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" style="line-height: 30px; height: 30px;" id="navbarSupportedContent">
@@ -37,23 +37,46 @@
         <!-- adicionar componentes ao navbar -->
       </ul>
       <form class="form-inline my-2 my-lg-0 my-md-0" action="/home" method="POST">
+        <span id='clickableAwesomeFont' data-target="#ModalQrcode" data-toggle="modal"> <i
+            class="fas fa-qrcode mr-sm-4 fa-2x pb-2 pt-2"></i> </span>
+            
         <i class="fas fa-user-astronaut mr-sm-4 fa-2x pb-2 pt-2"></i> <!-- Astronaut FontAwesome icon -->
         <input type="Login" class="form-control mr-sm-2" id="InputLogin" aria-describedby="LoginHelp"
           placeholder="Login" required="" name="CPF">
-        <input type="password" class="form-control mr-sm-2" id="InputPassword" placeholder="Senha"
-          inputmode="numeric" size="20" required title="Insira sua senha de 5 caracteres." name="Senha">
+        <input type="password" class="form-control mr-sm-2" id="InputPassword" placeholder="Senha" inputmode="numeric"
+          size="20" required title="Insira sua senha de 5 caracteres." name="Senha">
         <button class="btn btn-outline-light my-2 btn-auto" type="submit">Entrar</button>
       </form>
     </div>
   </nav>
-
+  <!-- Modal -->
+  <div class="modal fade" id="ModalQrcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Escane o QrCode!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+         <div id="qrcodeDiv" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+         </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="container p-4 mx-sm-2 mx-md-3 mx-lg-4 mx-xl-5">
     <div class="row">
       <div class="col-5" id="headingGroup">
         <h2 class="pb-1 pt-3" style="font-size: 22px;">Bem-vindo ao</h2>
-        <h1 class="bank-name" style="font-family: 'Condiment', cursive; font-size: 59px;" 
-        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</h1>
+        <h1 class="bank-name" style="font-family: 'Condiment', cursive; font-size: 59px;"
+          href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</h1>
         <a href="/cadastro"><button class="btn btn-outline-light my-2" type="submit">Abra a sua Conta!</button></a>
       </div>
     </div>
@@ -108,5 +131,43 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
+    <script src="js/qrcode.min.js"></script>
+
+    <!-- Script para gerar o QRCODE-->
+    <script>
+    //new QRCode(document.getElementById("qrcodeDiv"),"teste123");
+    </script>
+    <script>
+      $(document).ready(function() {
+            initiate();
+        });
+        function initiate() {
+            if ("WebSocket" in window) {
+                var ws = new WebSocket("ws://localhost:8080");
+                ws.onopen = function() {
+                    var data = {message:'Conectando'}
+                    ws.send(JSON.stringify(data));
+                };
+                ws.onmessage = function(evt) {
+                  var dataObj = JSON.parse(evt.data);
+                  console.log('recebi: '+evt.data);
+                  if(dataObj.message == 'Home'){
+                    new QRCode(document.getElementById("qrcodeDiv"),dataObj.token);
+                    
+                    var data = {userId:1,message:'Entrando'}
+                    ws.send(JSON.stringify(data));
+
+                  }
+                };
+                ws.onclose = function() {
+                    console.log("Connection is closed...");
+                };
+            } else {
+                alert("WebSocket NOT supported by your Browser!");
+            }
+        }
+
+    </script>
 </body>
+
 </html>

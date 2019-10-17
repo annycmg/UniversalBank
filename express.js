@@ -14,8 +14,37 @@ const cmd = require('./connect')
 const pessoa = require('./Controller/appController')
 const task = require('./Controller/appController')
 
+var QrCodeLogin = 0;
 //Porta para conectar
 port = process.env.PORT || 3000;
+
+
+var WebSocketServer = require('ws').Server;
+var wss = new WebSocketServer({path:'/',port: 8080});
+const uuidv1 = require('uuid/v1');
+
+var clientes = {};
+wss.on('connection', function connection(ws){
+    ws.on('message',function incoming(message){
+        console.log('recebeu: %s',message);
+        var data = JSON.parse(message);
+        if(data.message == 'Conectando'){
+        var token = uuidv1();
+        console.log('token: '+token)
+        clientes[token] = ws;
+        var data = {token:token,message:'Home'}        
+        ws.send(JSON.stringify(data),{mask:false})
+        }
+        else if(data.message == 'Entrando'){
+            if(typeof data.userId !== "undefined"){
+            console.log('userId: '+data.userId);
+            QrCodeLogin = data.userId;
+        }
+    });
+});
+
+
+
 
 //
 const {
@@ -88,10 +117,15 @@ app.post('/',(req,res)=>{
     })
 })
 app.get('/home', redirectLogin, (req, res) => {
+    if(QrCodeLogin > 0){
+        req.session.userId = QrCodeLogin;
+    }else{
     const {user} = res.locals
     console.log('user: '+user)
     res.render('myAccountScreen.ejs')
+    }
 })
+
 
 app.post('/home', (req, res) => {
     console.log(req.body)
@@ -189,3 +223,6 @@ let minutos = data.getMinutes();
 let seconds = data.getSeconds();
 
 app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds)) 
+
+
+

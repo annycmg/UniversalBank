@@ -32,6 +32,10 @@ body{ /* Background e cor da fonte para todas as telas */
 
 #card { margin-top: 2%; }
 
+#clickableAwesomeFont {
+    cursor: pointer
+}
+
 .bank-name{ font-size: 70px; padding-top: 3%; } /* index */
 
 .body-login, .navbar-brand, .fatura-past{  /* tela de login em index.ejs e logo da UniversalBank */
