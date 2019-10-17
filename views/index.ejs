@@ -39,7 +39,7 @@
       <form class="form-inline my-2 my-lg-0 my-md-0" action="/home" method="POST">
         <span id='clickableAwesomeFont' data-target="#ModalQrcode" data-toggle="modal"> <i
             class="fas fa-qrcode mr-sm-4 fa-2x pb-2 pt-2"></i> </span>
-            
+
         <i class="fas fa-user-astronaut mr-sm-4 fa-2x pb-2 pt-2"></i> <!-- Astronaut FontAwesome icon -->
         <input type="Login" class="form-control mr-sm-2" id="InputLogin" aria-describedby="LoginHelp"
           placeholder="Login" required="" name="CPF">
@@ -61,8 +61,8 @@
           </button>
         </div>
         <div class="modal-body">
-         <div id="qrcodeDiv" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
-         </div>
+          <div id="qrcodeDiv" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
@@ -131,43 +131,63 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
     integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
-    <script src="js/qrcode.min.js"></script>
+  <script src="js/qrcode.min.js"></script>
 
-    <!-- Script para gerar o QRCODE-->
-    <script>
+  <!-- Script para gerar o QRCODE-->
+  <script>
     //new QRCode(document.getElementById("qrcodeDiv"),"teste123");
-    </script>
-    <script>
-      $(document).ready(function() {
-            initiate();
-        });
-        function initiate() {
-            if ("WebSocket" in window) {
-                var ws = new WebSocket("ws://localhost:8080");
-                ws.onopen = function() {
-                    var data = {message:'Conectando'}
-                    ws.send(JSON.stringify(data));
-                };
-                ws.onmessage = function(evt) {
-                  var dataObj = JSON.parse(evt.data);
-                  console.log('recebi: '+evt.data);
-                  if(dataObj.message == 'Home'){
-                    new QRCode(document.getElementById("qrcodeDiv"),dataObj.token);
-                    
-                    var data = {userId:1,message:'Entrando'}
-                    ws.send(JSON.stringify(data));
+  </script>
+  <script>
+    $(document).ready(function () {
+      initiate();
+    });
+    function initiate() {
+      if ("WebSocket" in window) {
+        var ws = new WebSocket("ws://localhost:8080");
+        ws.onopen = function () {
+          var data = { message: 'Conectando' }
+          ws.send(JSON.stringify(data));
+        };
+        ws.onmessage = function (evt) {
+          var dataObj = JSON.parse(evt.data);
+          console.log('recebi: ' + evt.data);
+          if (dataObj.message == 'Home') {
+            new QRCode(document.getElementById("qrcodeDiv"), dataObj.token);
 
-                  }
-                };
-                ws.onclose = function() {
-                    console.log("Connection is closed...");
-                };
-            } else {
-                alert("WebSocket NOT supported by your Browser!");
-            }
+            var data = { userId: 1, message: 'Entrando' }
+            ws.send(JSON.stringify(data));
+            //post('/home/',{userId: 1});
+
+          }
+        };
+        ws.onclose = function () {
+          console.log("Connection is closed...");
+        };
+      } else {
+        alert("WebSocket NOT supported by your Browser!");
+      }
+    }
+
+    function post(path, params, method = 'post') {
+      const form = document.createElement('form');
+      form.method = method;
+      form.action = path;
+
+      for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+          const hiddenField = document.createElement('input');
+          hiddenField.type = 'hidden';
+          hiddenField.name = key;
+          hiddenField.value = params[key];
+
+          form.appendChild(hiddenField);
         }
+      }
+      document.body.appendChild(form);
+      form.submit();
+    }
 
-    </script>
+  </script>
 </body>
 
 </html>

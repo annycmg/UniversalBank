@@ -14,37 +14,34 @@ const cmd = require('./connect')
 const pessoa = require('./Controller/appController')
 const task = require('./Controller/appController')
 
-var QrCodeLogin = 0;
 //Porta para conectar
 port = process.env.PORT || 3000;
 
 
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({path:'/',port: 8080});
+var wss = new WebSocketServer({ path: '/', port: 8080 });
 const uuidv1 = require('uuid/v1');
 
 var clientes = {};
-wss.on('connection', function connection(ws){
-    ws.on('message',function incoming(message){
-        console.log('recebeu: %s',message);
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        console.log('recebeu: %s', message);
         var data = JSON.parse(message);
-        if(data.message == 'Conectando'){
-        var token = uuidv1();
-        console.log('token: '+token)
-        clientes[token] = ws;
-        var data = {token:token,message:'Home'}        
-        ws.send(JSON.stringify(data),{mask:false})
+        if (data.message == 'Conectando') {
+            var token = uuidv1();
+            console.log('token: ' + token)
+            clientes[token] = ws;
+            var data = { token: token, message: 'Home' }
+            ws.send(JSON.stringify(data), { mask: false })
         }
-        else if(data.message == 'Entrando'){
-            if(typeof data.userId !== "undefined"){
-            console.log('userId: '+data.userId);
-            QrCodeLogin = data.userId;
+        else if (data.message == 'Entrando') {
+            if (typeof data.userId !== "undefined") {
+                console.log('userId: ' + data.userId);
+               
+            }
         }
     });
 });
-
-
-
 
 //
 const {
@@ -54,10 +51,10 @@ const {
     SESS_SECRET = 'UniversalBank'
 } = process.env
 
-const IN_PROD = NODE_ENV ==='home'
+const IN_PROD = NODE_ENV === 'home'
 
 const redirectLogin = (req, res, next) => {
-    
+
     if (!req.session.userId) {
         res.redirect('/')
     } else {
@@ -92,9 +89,9 @@ app.use(session({
 }))
 
 
-app.use((req,res,next)=>{
-    const {userId} = req.session
-    if(userId){
+app.use((req, res, next) => {
+    const { userId } = req.session
+    if (userId) {
         res.locals.user = userId
     }
     next()
@@ -106,9 +103,9 @@ app.get('/', redirectHome, (req, res) => {
     const { userId } = req.session
     res.render('index.ejs')
 })
-app.post('/',(req,res)=>{
-    req.session.destroy(err=>{
-        if(err){
+app.post('/', (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
             console.log(err)
             return res.redirect('/home')
         }
@@ -117,36 +114,40 @@ app.post('/',(req,res)=>{
     })
 })
 app.get('/home', redirectLogin, (req, res) => {
-    if(QrCodeLogin > 0){
-        req.session.userId = QrCodeLogin;
-    }else{
-    const {user} = res.locals
-    console.log('user: '+user)
-    res.render('myAccountScreen.ejs')
-    }
+    
+        const { user } = res.locals
+        console.log('user: ' + user)
+        res.render('myAccountScreen.ejs')
+    
 })
 
 
 app.post('/home', (req, res) => {
     console.log(req.body)
     // req.session.userId = 
-
-    cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
-        if (err) {
-            console.log("error: ", err);
-        }
-        else {
-            if (result.length == 0) {
-                res.render('login.ejs', { message: 'Login/Senha incorreto' });
-            } else {
-                req.session.userId = result[0].idCliente
-                console.log(result[0].idCliente)
-                res.render('myAccountScreen.ejs')
-                console.log(req.session)
+    var { userId } = req.body;
+    if (userId) {
+        req.session.userId = userId;
+        res.render('myAccountScreen.ejs')
+        console.log(req.session)
+    } else {
+        cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
+            if (err) {
+                console.log("error: ", err);
             }
+            else {
+                if (result.length == 0) {
+                    res.render('login.ejs', { message: 'Login/Senha incorreto' });
+                } else {
+                    req.session.userId = result[0].idCliente
+                    console.log(result[0].idCliente)
+                    res.render('myAccountScreen.ejs')
+                    console.log(req.session)
+                }
 
-        }
-    })
+            }
+        })
+    }
 })
 
 app.get('/show', (req, res) => {
@@ -161,28 +162,28 @@ app.route('/cadastro').get((req, res) => {
 //    res.render('cadastro.ejs')
 // })
 
-app.get('/home/dashGastos',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'dashGastosScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/dashGastos', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'dashGastosScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 })
 
-app.get('/home/dashCards',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'dashCardsScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/dashCards', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'dashCardsScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 
 })
 
-app.get('/home/dashTransf',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'dashTransfScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/dashTransf', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'dashTransfScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 
 })
@@ -191,11 +192,11 @@ app.route('/home').get((req, res) => {
     res.render('myAccountScreen.ejs')
 })
 
-app.get('/home/sustentabScreen',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'sustentabScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/sustentabScreen', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'sustentabScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 
 })
@@ -205,11 +206,11 @@ app.route('/home/transfScreen').get((req, res) => {
     res.render('transfScreen.ejs')
 })
 
-app.get('/home/myCardScreen',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'myCardScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/myCardScreen', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'myCardScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 })
 //Api
@@ -222,7 +223,7 @@ let horas = data.getHours();
 let minutos = data.getMinutes();
 let seconds = data.getSeconds();
 
-app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds)) 
+app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds))
 
 
 
