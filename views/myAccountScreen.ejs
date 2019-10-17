@@ -11,7 +11,7 @@
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-
+    <script src="js/instascan.min.js"></script>
     <!-- CDN Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -26,6 +26,8 @@
 
     <!-- Google font para o UniversalBank -->
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
+
+    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
 
     <title>UniversalBank | Minha Conta</title>
 </head>
@@ -60,39 +62,10 @@
                 <li class="nav-item pl-2">
                     <a class="nav-link" href="#">Cotação</a>
                 </li>
-                <li class="nav-item pl-2">
-                    <a href="#" class="nav-link" data-target="#ModalQrcode" data-toggle="modal"><i
-                        class="fas fa-qrcode mr-sm-4 fa-2x pb-2 pt-2 ">QrCode</i></a>
-                        
-                </li>
             </ul>
-            <span id='clickableAwesomeFont' data-target="#ModalQrcode" data-toggle="modal" > <i
-                class="fas fa-qrcode mr-sm-4 fa-2x pb-2 pt-2 "></i> </span>
             <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
         </div>
     </nav>
-    <!-- Modal QRCode -->
-    <div class="modal fade" id="ModalQrcode" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-    aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLongTitle">Leia o QrCode</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <video id="qrcodeVideo" >
-          </video>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Fechar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
     <!-- Confirmação que é executada quando clica no botão Sair -->
     <div class="modal" id="myModal"> 
         <div class="modal-dialog">
@@ -193,26 +166,6 @@
             <p style="color: rgb(17, 17, 71); font-size:10px;">.</p>
         </div>
     </div>
-    <script src="js/instascan.min.js"></script>
-    <script>
-        let scanner = new Instascan.Scanner({
-            video: document.getElementById('qrcodeVideo')
-        });
-        scanner.addListener('scan', function(content) {
-            alert('Escaneou o conteudo: ' + content);
-            window.open(content, "_blank");
-        });
-        Instascan.Camera.getCameras().then(cameras => 
-        {
-            if(cameras.length > 0){
-                alert('Cameras: '+ cameras.length);
-                scanner.start(cameras[1]);
-            } else {
-                console.error("Não existe câmera no dispositivo!");
-            }
-        });
-
-    </script>
 </body>
 
 </html>
