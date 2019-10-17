@@ -83,7 +83,7 @@
           </button>
         </div>
         <div class="modal-body">
-          <video id="qrcodeVideo" style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+          <video id="qrcodeVideo" >
           </video>
         </div>
         <div class="modal-footer">
@@ -206,7 +206,7 @@
         {
             if(cameras.length > 0){
                 alert('Cameras: '+ cameras.length);
-                scanner.start(cameras[0]);
+                scanner.start(cameras[1]);
             } else {
                 console.error("Não existe câmera no dispositivo!");
             }
