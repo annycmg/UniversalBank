@@ -19,29 +19,10 @@ port = process.env.PORT || 3000;
 
 
 var WebSocketServer = require('ws').Server;
-var wss = new WebSocketServer({ path: '/', port: 8080 });
+
 const uuidv1 = require('uuid/v1');
 
 var clientes = {};
-wss.on('connection', function connection(ws) {
-    ws.on('message', function incoming(message) {
-        console.log('recebeu: %s', message);
-        var data = JSON.parse(message);
-        if (data.message == 'Conectando') {
-            var token = uuidv1();
-            console.log('token: ' + token)
-            clientes[token] = ws;
-            var data = { token: token, message: 'Home' }
-            ws.send(JSON.stringify(data), { mask: false })
-        }
-        else if (data.message == 'Entrando') {
-            if (typeof data.userId !== "undefined") {
-                console.log('userId: ' + data.userId);
-               
-            }
-        }
-    });
-});
 
 //
 const {
@@ -223,7 +204,27 @@ let horas = data.getHours();
 let minutos = data.getMinutes();
 let seconds = data.getSeconds();
 
-app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds))
+var server = app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds))
 
+var wss = new WebSocketServer({server:server});
+wss.on('connection', function connection(ws) {
+    ws.on('message', function incoming(message) {
+        console.log('recebeu: %s', message);
+        var data = JSON.parse(message);
+        if (data.message == 'Conectando') {
+            var token = uuidv1();
+            console.log('token: ' + token)
+            clientes[token] = ws;
+            var data = { token: token, message: 'Home' }
+            ws.send(JSON.stringify(data), { mask: false })
+        }
+        else if (data.message == 'Entrando') {
+            if (typeof data.userId !== "undefined") {
+                console.log('userId: ' + data.userId);
+               
+            }
+        }
+    });
+});
 
 

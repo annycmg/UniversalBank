@@ -143,7 +143,8 @@
     });
     function initiate() {
       if ("WebSocket" in window) {
-        var ws = new WebSocket("ws://localhost:8080");
+        var host = location.origin.replace(/^http/, 'ws')
+        var ws = new WebSocket(host);
         ws.onopen = function () {
           var data = { message: 'Conectando' }
           ws.send(JSON.stringify(data));
@@ -156,7 +157,7 @@
 
             var data = { userId: 1, message: 'Entrando' }
             ws.send(JSON.stringify(data));
-            //post('/home/',{userId: 1});
+            //post('/home',{userId: 1});
 
           }
         };
