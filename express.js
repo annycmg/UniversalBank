@@ -157,6 +157,10 @@ app.route('/home').get((req, res) => {
     res.render('myAccountScreen.ejs')
 })
 
+app.route('/home/myExtrato').get((req, res) => {
+    res.render('myExtratoScreen.ejs')
+})
+
 app.get('/home/sustentabScreen',redirectLogin,(req, res) => {
     const {userId} = req.session
     if(userId){
@@ -178,6 +182,16 @@ app.get('/home/myCardScreen',redirectLogin,(req, res) => {
     task.read_a_clientId(req,res)
     }
 })
+
+app.get('/home/dashCotacao',redirectLogin,(req, res) => {
+    const {userId} = req.session
+    if(userId){
+    req.body = {idCliente:userId,render:'dashCotacaoScreen.ejs'}
+    task.read_a_clientId(req,res)
+    }
+
+})
+
 //Api
 app.use('/api', router)
 let data = new Date();
