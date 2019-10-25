@@ -38,7 +38,7 @@ exports.read_a_clientId = (req,res)=>{
         console.log('Id incorreto.')
         res.status(400).send('Id incorreto.')
         }else{
-            res.render(req.body.render,{ message: task[0].nomeCliente })
+            res.render(req.body.render,{ message: task[0].nomePessoa })
         }
     })
     else{

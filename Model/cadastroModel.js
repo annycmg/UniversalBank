@@ -13,6 +13,7 @@ var Pessoa = function(pessoa){
     this.enderecoPessoa = pessoa.enderecoPessoa;
     this.cepPessoa = pessoa.cepPessoa.replace(/[^\d]+/g,'');
     this.dataNascimentoPessoa = pessoa.dataNascimentoPessoa.substr(0, 10).split('/').reverse().join('-');
+    this.senhaPessoa = pessoa.senhaPessoa;
 }
 
 Pessoa.getAllPessoas =(result)=>{

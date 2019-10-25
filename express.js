@@ -112,7 +112,7 @@ app.post('/home', (req, res) => {
         res.render('myAccountScreen.ejs')
         console.log(req.session)
     } else {
-        cmd.connection.query("Select * from Cliente where cpfCliente = ? and senhaCliente = ?", [req.body.CPF, req.body.Senha], (err, result) => {
+        cmd.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa where t2.cpfPessoa = ? and t2.senhaPessoa = ?", [req.body.CPF, req.body.Senha], (err, result) => {
             if (err) {
                 console.log("error: ", err);
             }

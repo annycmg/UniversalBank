@@ -3,10 +3,12 @@ const sql = require('../connect')
 //o modelo de banco para ser pesquisado.
 var Task = function(task){
     this.idCliente =task.idCliente;
-    this.nomeCliente = task.nomeCliente;
-    this.senhaCliente = task.senhaCliente;
-    this.cpfCliente = task.cpfCliente;
-    this.dataNascimentoCliente = task.dataNascimentoCliente;
+    this.totalCliente = task.totalCliente;
+    this.creditoCliente = task.creditoCliente;
+    this.tipoContaCliente = task.tipoContaCliente;
+    this.agenciaCliente = task.agenciaCliente;
+    this.contaCliente = task.contaCliente;
+    this.idPessoa = task.idPessoa;
 }
 
 Task.getAllClientes = (result)=>{
@@ -34,7 +36,7 @@ Task.getClienteByCpf = (client,result)=>{
     })
 }
 Task.getClienteById = (client,result)=>{
-    sql.connection.query("Select * from Cliente where idCliente = ?",[client.idCliente],(err,res)=>{
+    sql.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa where idCliente = ?",[client.idCliente],(err,res)=>{
         if (err) {
             console.log("error: ", err);
             result(err, null);
