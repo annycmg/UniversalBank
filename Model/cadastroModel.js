@@ -14,7 +14,9 @@ var Pessoa = function(pessoa){
     this.cepPessoa = pessoa.cepPessoa.replace(/[^\d]+/g,'');
     this.dataNascimentoPessoa = pessoa.dataNascimentoPessoa.substr(0, 10).split('/').reverse().join('-');
     this.senhaPessoa = pessoa.senhaPessoa;
+    this.idPessoa = pessoa.idPessoa;
 }
+
 
 Pessoa.getAllPessoas =(result)=>{
     sql.connection.query('select * from Pessoa',(err,res)=>{
@@ -43,4 +45,5 @@ Pessoa.createPessoa = (newPessoa,result)=>{
     })
 }
 
-module.exports = Pessoa;
+
+module.exports = Pessoa

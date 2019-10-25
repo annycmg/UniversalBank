@@ -1,5 +1,7 @@
 var Task = require('../Model/appModel')
 var Pessoa = require('../Model/cadastroModel')
+var Cliente = require('../Model/ClienteModel')
+var Cartao = require('../Model/CartaoModel')
 
 exports.list_all_tasks = (req,res)=>{
     Task.getAllClientes((err,task)=>{
@@ -38,7 +40,10 @@ exports.read_a_clientId = (req,res)=>{
         console.log('Id incorreto.')
         res.status(400).send('Id incorreto.')
         }else{
-            res.render(req.body.render,{ message: task[0].nomePessoa })
+            var cliente = task[0];
+            var info = {id:cliente.idCliente, saldo:formataDinheiro(cliente.saldoCliente), credito:formataDinheiro(cliente.creditoCliente), codcartao:cliente.codigoCartao.replace(/(\d{4}(?!\s))/g, "$1 "), nome:cliente.nomeCartao, dataven: cliente.dataVencimentoCartao.getMonth()+"/"+cliente.dataVencimentoCartao.getFullYear(),
+            nomeP: cliente.nomePessoa};
+            res.render(req.body.render, {info: info} )
         }
     })
     else{
@@ -85,3 +90,7 @@ exports.list_all_pessoas = (req,res)=>{
         res.send(pessoa);
     })
 }
+
+function formataDinheiro(n) {
+    return n.toFixed(2).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
+    }

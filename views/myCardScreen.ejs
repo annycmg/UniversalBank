@@ -69,17 +69,17 @@
         <div class="row pt-3">
             <div class="col-lg-6 col-md-6 col-sm-12 mb-4">
                 <div class="card card-screen text-dark" style="height: 14rem;">
-                    <h2 class="saldo mt-3 ml-3" style="font-size: 24px;">Saldo disponível em conta: <h3 class="value ml-3">R$ 576,71</h3></h2>
-                    <h2 class="limit mt-1 ml-3">Limite cartão de crédito: <h3 class="value ml-3">R$ 2.500,00</h3></h2>
+                    <h2 class="saldo mt-3 ml-3" style="font-size: 24px;">Saldo disponível em conta: <h3 class="value ml-3">R$ <%= info.saldo %></h3></h2>
+                    <h2 class="limit mt-1 ml-3">Limite cartão de crédito: <h3 class="value ml-3">R$ <%= info.credito %></h3></h2>
                     <h2 class="fatura mt-1 ml-3">Fatura atual - venc. 30/11: <h3 class="value ml-3">R$ 339,87</h3></h2>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
                 <div class="card mt-1 mb-4" style="width:21rem; height:13.5rem; background-color: rgb(36, 32, 32);">
                     <p class="navbar-brand ml-3 mt-3" style="font-family: 'Condiment', cursive; font-size: 20px;" href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</p>
-                    <p class="card-number ml-3 mt-5 mb-1" style="font-family: 'PT Mono', monospace; font-size: 17px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">1234 5678 9101 2345</p>
-                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap"><%= message %></p>   
-                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">VALID: 11/2026<img class="icon-mastercard" src="https://img.icons8.com/color/48/000000/mastercard-logo.png"></p>   
+                    <p class="card-number ml-3 mt-5 mb-1" style="font-family: 'PT Mono', monospace; font-size: 17px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap"><%= info.codcartao %></p>
+                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap"><%= info.nome %></p>   
+                    <p class="card-name ml-3 mb-1" style="font-family: 'PT Mono', monospace; font-size: 14px;" href="https://fonts.googleapis.com/css?family=PT+Mono&display=swap">VALID: <%= info.dataven %><img class="icon-mastercard" src="https://img.icons8.com/color/48/000000/mastercard-logo.png"></p>   
                 </div>
             </div>
         </div>

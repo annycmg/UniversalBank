@@ -36,7 +36,7 @@ Task.getClienteByCpf = (client,result)=>{
     })
 }
 Task.getClienteById = (client,result)=>{
-    sql.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa where idCliente = ?",[client.idCliente],(err,res)=>{
+    sql.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Cartao` t2  on t1.idCliente = t2.idCliente inner join `UniversalBank`.`Pessoa` t3 on t3.idPessoa = t1.idPessoa where t1.idCliente = ?",[client.idCliente],(err,res)=>{
         if (err) {
             console.log("error: ", err);
             result(err, null);
