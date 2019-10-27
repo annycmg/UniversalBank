@@ -18,10 +18,10 @@ Cartao.createCartao = (newCartao,result)=>{
         }else{
             if(res.message == ''){
                 result(null,'Cartao inserido com sucesso!')
+                console.log("Cartao criado com sucesso.");
             }else{
                 result(null,'Houve algum problema' + res.message)
             }
-            result(null,res)
         }
     })
 }

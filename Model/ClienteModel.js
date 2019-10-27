@@ -9,6 +9,19 @@ var Cliente = function(cliente){
     this.idPessoa = cliente.idPessoa;
 }
 
+Cliente.getIdClient = (idPessoa,result)=>{
+    sql.connection.query('select idCliente from Cliente where idPessoa = ?',[idPessoa],(err,res)=>{
+        if(err){
+            console.log("error ao pegar id",err);
+        }else{
+            if(result.lenght == 0){
+                result(null,'Consulta não retornou resultados.')
+            }else{
+                result(null,res[0].idCliente)
+            }
+        }
+    })
+}
 
 Cliente.createCliente = (newCliente,result)=>{
     sql.connection.query("insert into Cliente set ?",newCliente,(err,res)=>{
@@ -23,7 +36,6 @@ Cliente.createCliente = (newCliente,result)=>{
                 result(null,'Houve algum problema' + res.message)
                 console.log(res.message);
             }
-            result(null,res.nomePessoa)
         }
     })
 }

@@ -29,6 +29,20 @@ Pessoa.getAllPessoas =(result)=>{
         }
     })
 }
+
+Pessoa.getIdPessoa = (cpf,result)=>{
+    sql.connection.query('select idPessoa from Pessoa where cpfPessoa = ?',[cpf],(err,res)=>{
+        if(err){
+            console.log("error ao pegar id",err);
+        }else{
+            if(result.lenght == 0){
+                result(null,'Consulta não retornou resultados.')
+            }else{
+                result(null,res[0].idPessoa)
+            }
+        }
+    })
+}
 Pessoa.createPessoa = (newPessoa,result)=>{
     sql.connection.query("insert into Pessoa set ?",newPessoa,(err,res)=>{
         if(err){
@@ -40,7 +54,6 @@ Pessoa.createPessoa = (newPessoa,result)=>{
             }else{
                 result(null,'Houve algum problema' + res.message)
             }
-            result(null,res.nomePessoa)
         }
     })
 }
