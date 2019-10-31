@@ -55,7 +55,11 @@ const redirectHome = (req, res, next) => {
 //Parte do site
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+
 app.use(express.static(__dirname + '/views'));
+app.use('/home',express.static(__dirname + '/views'));
+
 app.use(session({
     name: SESS_NAME,
     resave: false,
@@ -184,11 +188,12 @@ app.get('/home/sustentabScreen', redirectLogin, (req, res) => {
 
 
 app.get('/home/transfScreen',redirectLogin,(req, res) => {
-    res.render('transfScreen.ejs')
+    var info = {status: 0}
+    res.render('transfScreen.ejs',{info: info})
 }).post('/home/transfScreen',(req,res)=>{
     const {userId} = req.session
     if(userId){
-        task.RealizaTransferencia(req,res,userId);
+        task.RealizaTransferencia(req,res,userId,'transfScreen.ejs');
     }
 })
 

@@ -131,36 +131,47 @@ exports.list_all_pessoas = (req, res) => {
     })
 }
 
-exports.RealizaTransferencia = (req,res,idUser)=>{
+exports.RealizaTransferencia = (req,res,idUser,view)=>{
     console.log(req.body)
     Transf.ChecaExisteRecebedor(req.body.cpfPessoa,req.body.nomePessoa,(err,idPessoa)=>{
         if(err){
             res.status(400).send(err);
         }
         if(idPessoa !== undefined){
-            Cliente.getIdClient(idPessoa, (err, idCliente) => {
-                if(err){
-                    res.status(400).send(err);
-                }else{
-                    if (idCliente !== undefined) {
-                        var newTransf = new Transf({valorTransacao:req.body.transfValor ,dataTransacao:new Date(), descricaoTransacao:"Transferencia", idCliente:idUser, tipoTransacao:1, idRecebedorTransacao:idCliente, agenciaTransacao:1000, contaTransacao: 100000})
-                        Transf.FazTransfencia(newTransf,(err,result)=>{
-                            if(err){
-                                res.send(err);
-                                console.log(err);
-                            }else{
-                                if(result==="Processado com sucesso!"){
-                                    res.send('Transferencia Feita');
+            if(!isInt(idPessoa)){
+                var info = {status: 2,message:'Pessoa informada não existe.'}
+                res.render(view,{info:info});
+            }else{
+                Cliente.getIdClient(idPessoa, (err, idCliente) => {
+                    if(err){
+                        res.status(400).send(err);
+                    }else{
+                        if (idCliente !== undefined) {
+                            var newTransf = new Transf({valorTransacao:req.body.transfValor ,dataTransacao:new Date(), descricaoTransacao:"Transferencia", idCliente:idUser, tipoTransacao:1, idRecebedorTransacao:idCliente, agenciaTransacao:1000, contaTransacao: 100000})
+                            Transf.FazTransfencia(newTransf,(err,result)=>{
+                                if(err){
+                                    res.send(err);
+                                    console.log(err);
                                 }else{
-                                    console.log(result+"\n"+err)
-                                    res.status(400).send(result);
+                                    if(result==="Processado com sucesso!"){
+                                        var info = {status: 1}
+                                        res.render(view,{info:info});
+                                    }else if(result==="Saldo insuficiente."){
+                                        var info = {status: 2,message:'Você não tem saldo suficiente para essa Transferência.'}
+                                        res.render(view,{info:info});
+                                    }
+                                    else{
+                                        console.log(result+"\n"+err)
+                                        res.status(400).send(result);
+                                    }
                                 }
-                            }
-                            
-                        })
+                                
+                            })
+                        }
                     }
-                }
-            })
+                })
+            }
+            
         }
     })
 }
@@ -174,3 +185,7 @@ function formataDinheiro(int) {
 
         return tmp;
 }
+function isInt(value) {
+    var x = parseFloat(value);
+    return !isNaN(value) && (x | 0) === x;
+  }
