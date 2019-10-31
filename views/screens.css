@@ -1,5 +1,9 @@
 body{ /* Background e cor da fonte para todas as telas */
-    background-color:rgb(17, 17, 71);
+    background-image: url("https://www.setaswall.com/wp-content/uploads/2017/06/Stars-Wallpapers-30-1920-x-1080.jpg");
+    /*background-image: src("Stars-Wallpapers-30-1920-x-1080.jpg");*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    /*background-color:rgb(17, 17, 71);*/
     color: whitesmoke;
 }
 
@@ -24,31 +28,34 @@ body{ /* Background e cor da fonte para todas as telas */
     margin-bottom: 3%;
 }
 
-#container1, #container2, #container3, #container4, #container5, .card, .form-control, .login-card { /* Dashboards de Crébito/Débito, transf, gastos, cards da myAccountScreen e form da tela cadastro */
+.card{
+    box-shadow: 0px 3px 5px rgb(0,0,0.30);
+    
+}
+
+#container1, #container2, #container3, #container4, #container5,.form-control { /* Dashboards de Crébito/Débito, transf, gastos, cards da myAccountScreen e form da tela cadastro */
     box-shadow: 0px 2px 3px rgb(0,0,0),
 				 0px 8px 13px rgb(0,0,0),
-				 0px 18px 23px rgba(0,0, 0.10); 
+				 0px 18px 23px rgba(0,0, 0.10);
 }
 
 #card { margin-top: 2%; }
 
-#clickableAwesomeFont {
-    cursor: pointer
-}
+#clickableAwesomeFont { cursor: pointer }
 
 .bank-name{ font-size: 70px; padding-top: 3%; } /* index */
 
 .body-login, .navbar-brand, .fatura-past{  /* tela de login em index.ejs e logo da UniversalBank */
     text-shadow: 0px 2px 3px rgb(0,0,0),
-				 0px 8px 13px rgb(0,0,0),
-				 0px 18px 23px rgba(0,0, 0.37);
+				 0px 8px 13px rgb(0,0,0), 
+				 0px 18px 23px rgba(0,0, 0.70);
 }
 
 .login-card, .card-screen {  /* card dentro da tela de logim em index.ejs */
     border-color: black; 
-    border-width: 2px;
+    border-width: 1px;
 }
-
+ 
 .icon-mastercard { 
     margin-left: 130px;
     margin-top: -15px;
@@ -59,13 +66,3 @@ body{ /* Background e cor da fonte para todas as telas */
 }
 
 .value {font-size: 18px; color: green;}
-
-
-
-
-
-
-
-
-
-
