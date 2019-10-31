@@ -14,10 +14,24 @@ Cliente.getIdClient = (idPessoa,result)=>{
         if(err){
             console.log("error ao pegar id",err);
         }else{
-            if(result.lenght == 0){
+            if(result.length == 0){
                 result(null,'Consulta não retornou resultados.')
             }else{
                 result(null,res[0].idCliente)
+            }
+        }
+    })
+}
+
+Cliente.getTotalTransf = (idCliente, result)=>{
+    sql.connection.query('select MONTH( `dataTransacao` ) as mes,sum(`valorTransacao`) AS total from UniversalBank.Transacao where idCliente = ? group by YEAR( `dataTransacao` ), MONTH( `dataTransacao` );',idCliente,(err,res)=>{
+        if(err){
+            console.log("error: ",err);
+        }else{
+            if(res.length > 0){
+                result(null,res);
+            }else{
+                result('Não tem valores.',null);
             }
         }
     })

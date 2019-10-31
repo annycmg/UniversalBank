@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,13 +16,18 @@
     <script src="https://code.highcharts.com/highcharts-more.js"></script>
 
     <!-- CDN Bootstrap-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
     <!-- CDN JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 
     <!-- CDN JQuery -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
 
     <!-- Link para o arquivo CSS -->
     <link rel="stylesheet" type="text/css" href="/screens.css">
@@ -33,16 +39,16 @@
 </head>
 
 <body>
-  	<nav class="navbar navbar-expand-md navbar-dark">
-        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size:22px;"
-        href="/home/dashTransf" 
-        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
-      	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        	<span class="navbar-toggler-icon"></span>
-      	</button>
-      	<div class="collapse navbar-collapse" style="line-height:30px; height:30px;" id="navbarSupportedContent">
-        	<ul class="navbar-nav mr-auto pl-5">
-            <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR  --> 
+    <nav class="navbar navbar-expand-md navbar-dark">
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size:22px;" href="/home/dashTransf"
+            href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" style="line-height:30px; height:30px;" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto pl-5">
+                <!-- PARA ADICIONAR MAIS BOTÕES AO NAVBAR  -->
                 <li class="nav-item">
                     <a class="nav-link active" href="/home">HOME<span class="sr-only">(current)</span></a>
                 </li>
@@ -56,17 +62,18 @@
                     <a class="nav-link" href="/home/dashGastos">Gastos Gerais</a>
                 </li>
             </ul>
-            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
+            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit"
+                class="btn btn-exit btn-outline-light">Sair</a>
         </div>
     </nav>
 
     <!-- Confirmação que é executada quando clica no botão Sair -->
-    <div class="modal" id="myModal"> 
+    <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" style="color: black;">Sair</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="color: black;">
                     <p>Deseja realmente sair?</p>
@@ -80,7 +87,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="heading pb-1 pt-2">
         <%= info.nomeP %>, confira suas transferências feitas durante o ano.
@@ -97,7 +104,13 @@
         </div>
     </div>
 
+    <div id="mydiv" style="display: none;"><%= info.datas %></div>
+    <div id="mydivmessage" style="display: none;"><%= info.valores %></div>
     <script type="text/javascript">
+        var datas = document.getElementById('mydiv').innerHTML.split(",");
+        var valores = document.getElementById('mydivmessage').innerHTML.split(',').map(function (item) {
+            return parseInt(item, 10);
+        });
         var chart = Highcharts.chart('container4', {
             title: {
                 text: 'Média de gastos mensais com transferências'
@@ -109,7 +122,7 @@
             },
 
             xAxis: {
-                categories: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+                categories: datas
             },
 
             plotOptions: {
@@ -123,12 +136,12 @@
                 name: 'R$',
                 type: 'column',
                 colorByPoint: true,
-                data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0, 135.6, 148.5, 216.4, 99.41],
+                data: valores,
                 showInLegend: false
             }]
-            });
+        });
 
-            $('#plain').click(function() {
+        $('#plain').click(function () {
             chart.update({
                 chart: {
                     inverted: false
@@ -137,9 +150,9 @@
                     text: 'Vertical'
                 }
             });
-            });
+        });
 
-            $('#inverted').click(function () {
+        $('#inverted').click(function () {
             chart.update({
                 chart: {
                     inverted: true
@@ -147,9 +160,10 @@
                 subtitle: {
                     text: 'Horizontal'
                 }
-            });            
+            });
         });                       
     </script>
-    
+
 </body>
+
 </html>

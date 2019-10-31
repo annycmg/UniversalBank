@@ -42,11 +42,32 @@ exports.read_a_clientId = (req, res) => {
                 res.status(400).send('Id incorreto.')
             } else {
                 var cliente = task[0];
-                var info = {
-                    id: cliente.idCliente, saldo: formataDinheiro(cliente.saldoCliente), credito: formataDinheiro(cliente.creditoCliente), codcartao: cliente.codigoCartao.replace(/(\d{4}(?!\s))/g, "$1 "), nome: cliente.nomeCartao, dataven: cliente.dataVencimentoCartao.getMonth() + "/" + cliente.dataVencimentoCartao.getFullYear(),
-                    nomeP: cliente.nomePessoa
-                };
-                res.render(req.body.render, { info: info })
+                if(req.body.render === 'sustentabScreen.ejs' || req.body.render === 'dashTransfScreen.ejs'){
+                    var datas = [];
+                    var valores = [];
+                    Cliente.getTotalTransf(getclient.idCliente,(err,result)=>{
+                        if(err){
+                            console.log("error: ",err);
+                            res.status(400).send(err)
+
+                        }else{
+                            result.forEach(function(valor){
+                                datas.push(months[valor.mes]);
+                                valores.push(valor.total);
+                            })
+                            var info = {nomeP: cliente.nomePessoa, datas: datas, valores: valores
+
+                            };
+                            res.render(req.body.render, { info: info })
+                        }
+                    })
+                }else{
+                    var info = {
+                        id: cliente.idCliente, saldo: formataDinheiro(cliente.saldoCliente), credito: formataDinheiro(cliente.creditoCliente), codcartao: cliente.codigoCartao.replace(/(\d{4}(?!\s))/g, "$1 "), nome: cliente.nomeCartao, dataven: cliente.dataVencimentoCartao.getMonth() + "/" + cliente.dataVencimentoCartao.getFullYear(),
+                        nomeP: cliente.nomePessoa
+                    };
+                    res.render(req.body.render, { info: info })
+                }
             }
         })
     else {
@@ -175,6 +196,7 @@ exports.RealizaTransferencia = (req,res,idUser,view)=>{
         }
     })
 }
+var months =['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out','Nov','Dez']
 
 function formataDinheiro(int) {
     //return n.toFixed(0).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
