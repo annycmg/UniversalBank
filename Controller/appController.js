@@ -2,6 +2,7 @@ var Task = require('../Model/appModel')
 var Pessoa = require('../Model/cadastroModel')
 var Cliente = require('../Model/ClienteModel')
 var Cartao = require('../Model/CartaoModel')
+var Transf = require('../Model/transferencia')
 
 exports.list_all_tasks = (req, res) => {
     Task.getAllClientes((err, task) => {
@@ -127,6 +128,40 @@ exports.list_all_pessoas = (req, res) => {
             res.send(err);
         console.log('res', pessoa)
         res.send(pessoa);
+    })
+}
+
+exports.RealizaTransferencia = (req,res,idUser)=>{
+    console.log(req.body)
+    Transf.ChecaExisteRecebedor(req.body.cpfPessoa,req.body.nomePessoa,(err,idPessoa)=>{
+        if(err){
+            res.status(400).send(err);
+        }
+        if(idPessoa !== undefined){
+            Cliente.getIdClient(idPessoa, (err, idCliente) => {
+                if(err){
+                    res.status(400).send(err);
+                }else{
+                    if (idCliente !== undefined) {
+                        var newTransf = new Transf({valorTransacao:req.body.transfValor ,dataTransacao:new Date(), descricaoTransacao:"Transferencia", idCliente:idUser, tipoTransacao:1, idRecebedorTransacao:idCliente, agenciaTransacao:1000, contaTransacao: 100000})
+                        Transf.FazTransfencia(newTransf,(err,result)=>{
+                            if(err){
+                                res.send(err);
+                                console.log(err);
+                            }else{
+                                if(result==="Processado com sucesso!"){
+                                    res.send('Transferencia Feita');
+                                }else{
+                                    console.log(result+"\n"+err)
+                                    res.status(400).send(result);
+                                }
+                            }
+                            
+                        })
+                    }
+                }
+            })
+        }
     })
 }
 

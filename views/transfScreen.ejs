@@ -24,6 +24,8 @@
     <!-- Google font para o UniversalBank -->
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
 
+    
+
 
 	<script type="text/javascript">
         function formatar(mascara, documento){
@@ -85,20 +87,20 @@
 		TRANSFERÊNCIA</div>
 
 	<div class="container pt-5 pb-5"> 
-        <form name="formulario" method="post" onsubmit="return confirmacao()">
+        <form name="formulario" method="post" action="/home/transfScreen">
             <div class="form-group">
 				<label>Nome do Banco</label>
-				<input type="text" name="nomeBanco" id="nomeBanco" class="form-control" maxlength="15"/>
+				<input type="text" name="nomeBanco" id="nomeBanco" class="form-control" maxlength="15"  value="Universal Bank"/>
             </div>
             
             <div class="form-group">
 				<label>Agência</label>
-				<input type="text" name="numAgencia" id="numAgencia" class="form-control" maxlength="4" onkeypress="formatar('####',this)"/>
+				<input type="text" name="numAgencia" id="numAgencia" class="form-control" maxlength="4" onkeypress="formatar('####',this)" value="1000"/>
             </div>
             
             <div class="form-group">
 				<label>Conta</label>
-				<input type="text" name="numConta" id="numConta" class="form-control" maxlength="7" onkeypress="formatar('#####-#',this)"/>
+				<input type="text" name="numConta" id="numConta" class="form-control" maxlength="7" onkeypress="formatar('#####-#',this)" value="10000-0"/>
             </div>
             
             <div class="form-group">

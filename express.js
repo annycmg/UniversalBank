@@ -183,8 +183,13 @@ app.get('/home/sustentabScreen', redirectLogin, (req, res) => {
 })
 
 
-app.route('/home/transfScreen').get((req, res) => {
+app.get('/home/transfScreen',redirectLogin,(req, res) => {
     res.render('transfScreen.ejs')
+}).post('/home/transfScreen',(req,res)=>{
+    const {userId} = req.session
+    if(userId){
+        task.RealizaTransferencia(req,res,userId);
+    }
 })
 
 app.get('/home/myCardScreen', redirectLogin, (req, res) => {
