@@ -16,6 +16,8 @@
     "express-session": "^1.16.2",
     "mysql": "^2.17.1",
     "nodemon": "^1.19.1",
+    "qr-scanner": "^1.1.1",
+    "uninstall": "0.0.0",
     "uuid": "^3.3.3",
     "ws": "^7.1.2"
   },

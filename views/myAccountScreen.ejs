@@ -11,7 +11,7 @@
         integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
         crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="js/instascan.min.js"></script>
+
     <!-- CDN Bootstrap-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
         integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -27,16 +27,65 @@
     <!-- Google font para o UniversalBank -->
     <link href="https://fonts.googleapis.com/css?family=Condiment&display=swap" rel="stylesheet">
 
-    <script type="text/javascript" src="https://rawgit.com/schmich/instascan-builds/master/instascan.min.js" ></script>	
+    <script
+        src="https://rawcdn.githack.com/tobiasmuehl/instascan/4224451c49a701c04de7d0de5ef356dc1f701a93/bin/instascan.min.js"></script>
+    <script>
+        var idCamera = 0;
+        var quantidadeCam = 0;
+        let scanner;
+        let scanner1;
+        function scan() {
+            scanner = new Instascan.Scanner({ video: document.getElementById('webcam') });
+            scanner.addListener('scan', function (content) {
+                alert(content);
+                console.log(content);
+            });
+            Instascan.Camera.getCameras().then(function (cameras) {
+
+                if (cameras.length > 0) {
+                    quantidadeCam = cameras.length;
+                    console.log(cameras);
+                    scanner.start(cameras[idCamera]);
+
+                } else {
+                    console.error('No cameras found.');
+                }
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+        function next() {
+            scanner.stop();
+            if( typeof scanner1 !== 'undefined')
+            scanner1.stop();
+            scanner1 = new Instascan.Scanner({ video: document.getElementById('webcam') });
+            scanner1.addListener('scan', function (content) {
+                alert(content);
+                console.log(content);
+            });
+            Instascan.Camera.getCameras().then(function (cameras) {
+                
+                idCamera++;
+
+                if (idCamera+1 > quantidadeCam) {
+                    idCamera = 0;
+                }
+                console.log(cameras);
+                scanner1.start(cameras[idCamera]);
+            }).catch(function (e) {
+                console.error(e);
+            });
+        }
+
+    </script>
 
     <title>UniversalBank | Minha Conta</title>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size: 22px;" 
-        href="/home"
-        href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
+        <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size: 22px;" href="/home"
+            href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -63,19 +112,47 @@
                     <a class="nav-link" href="/home/dashCotacao">Cotação</a>
                 </li>
                 <li class="nav-item pl-2">
-                    <a class="nav-link" href="#">QrCode</a>
+                    <a class="nav-link" data-target="#modalExemplo" data-toggle="modal" href="#modalExemplo"
+                        onclick="scan()">QrCode</a>
                 </li>
             </ul>
-            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit" class="btn btn-exit btn-outline-light">Sair</a>
+            <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit"
+                class="btn btn-exit btn-outline-light">Sair</a>
         </div>
     </nav>
+    <!--
+        Camera QrCode
+
+    -->
+    <div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document" style="width: 1250px;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Scan</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <video id="webcam"></video>
+                    <hr>
+                    <button onclick="next()">Proxima câmera</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Confirmação que é executada quando clica no botão Sair -->
-    <div class="modal" id="myModal"> 
+    <div class="modal" id="myModal">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" style="color: black;">Sair</h5>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>                
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
                 <div class="modal-body" style="color: black;">
                     <p>Deseja realmente sair?</p>
@@ -89,7 +166,7 @@
             </div>
         </div>
     </div>
-    
+
 
     <div class="container">
         <div class="row pl-4">
@@ -98,10 +175,11 @@
                     <!-- Card de Meu Cartão -->
                     <img src="myAccountImages/planet-1.png" class="card-img-top" alt="..." style="height: 13rem;">
                     <div class="card-body">
-                    <a href="/home/myCardScreen" class="btn btn-outline-dark card-title" style="color: black; font-weight: 700;">Meu Cartão</a>
-                    <p class="card-text" style="color: black;">Consulte seu limite no cartão, saldo e mais.</p>
+                        <a href="/home/myCardScreen" class="btn btn-outline-dark card-title"
+                            style="color: black; font-weight: 700;">Meu Cartão</a>
+                        <p class="card-text" style="color: black;">Consulte seu limite no cartão, saldo e mais.</p>
+                    </div>
                 </div>
-            </div>
             </div>
 
             <div class="col-lg-4 col-md-6 pt-4">
@@ -162,7 +240,8 @@
                     <div class="card-body">
                         <a href="/home/dashCotacao" class="btn btn-outline-dark card-title"
                             style="color: black; font-weight: 700;">Cotação</a>
-                        <p class="card-text" style="color: black;">Veja a cotação diária do dólar e euro atualizadas diariamente.</p>
+                        <p class="card-text" style="color: black;">Veja a cotação diária do dólar e euro atualizadas
+                            diariamente.</p>
                     </div>
                 </div>
             </div>
