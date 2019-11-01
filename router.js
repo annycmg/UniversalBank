@@ -17,6 +17,9 @@ router.get('/cliente/:cpf',(req,res) =>{
     }
     //res.json({cpf: req.params.cpf})
 })
+router.route('/transfdata').post(task.Pega15DiasTransacao);
+router.route('/login').post(task.DoLogin);
+
 router.route('/clientes')
     .get(task.list_all_tasks);
 

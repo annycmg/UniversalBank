@@ -28,6 +28,25 @@ Transf.ChecaExisteRecebedor = (cpf, nome, result) => {
     })
 }
 
+Transf.List15Dias = (dados,rest)=>{
+
+    sql.connection.query("SELECT t4.* FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa inner join `UniversalBank`.`Cartao` t3 on t1.idCliente = t3.idCliente inner join `UniversalBank`.`Transacao` t4 on t3.idCliente = t4.idCliente where t4.dataTransacao between DATE_SUB(?, INTERVAL 15 DAY) and ? and t2.cpfPessoa = ?",[dados.data,dados.data,dados.cpf],(err,result)=>{
+        if (err) {
+            console.log("error: ", err);
+            rest(err,null);
+        }
+        else {
+            if (result.length == 0) {
+                rest('dado incorreto.',null)
+            } else {
+                console.log(result[0])
+                rest(null,result)
+            }
+
+        }
+    })
+}
+
 
 Transf.FazTransfencia = (newTransf, result) => {
 

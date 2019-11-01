@@ -54,4 +54,22 @@ Cliente.createCliente = (newCliente,result)=>{
     })
 }
 
+Cliente.getLogin= (login,rest)=>{
+    sql.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa inner join `UniversalBank`.`Cartao` t3 on t1.idCliente = t3.idCliente where t2.cpfPessoa = ? and t2.senhaPessoa = ?", [login.cpf, login.senha], (err, result) => {
+        if (err) {
+            console.log("error: ", err);
+            rest(err,null);
+        }
+        else {
+            if (result.length == 0) {
+                rest('CPF/Senha incorreto.',null)
+            } else {
+                var dados = {saldo:result[0].saldoCliente,numCartao:result[0].codigoCartao,nome:result[0].nomePessoa}
+                console.log(result[0])
+                rest(null,dados)
+            }
+
+        }
+    })
+}
 module.exports = Cliente

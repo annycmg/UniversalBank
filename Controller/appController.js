@@ -12,6 +12,35 @@ exports.list_all_tasks = (req, res) => {
         res.send(task);
     })
 }
+exports.DoLogin = (req,res)=>{
+    var login = {cpf:req.body.cpf,senha:req.body.senha};
+    if(!login){
+        res.status(400).send({message:'Campos estão incorretos.'})
+    }else{
+        Cliente.getLogin(login,(err,message)=>{
+            if(err){
+                res.status(400).send(err);
+            }else{
+                res.json(message);
+            }
+
+        })
+    }
+}
+exports.Pega15DiasTransacao = (req,res)=>{
+    var login = {cpf:req.body.cpf,data:req.body.data};
+    if(!login){
+        res.status(400).send({message:'Campos estão incorretos.'})
+    }else{
+        Transf.List15Dias(login,(err,message)=>{
+            if(err){
+                res.status(400).send(err);
+            }else{
+                res.json(message);
+            }
+        })
+    }
+}
 
 exports.read_a_client = (req, res) => {
     var getclient = new Task(req.body)
