@@ -144,6 +144,7 @@
       if ("WebSocket" in window) {
         var host = location.origin.replace(/^http/, 'ws')
         var ws = new WebSocket(host);
+        var CodQrCode;
         ws.onopen = function () {
           var data = { message: 'Conectando' }
           ws.send(JSON.stringify(data));
@@ -152,12 +153,24 @@
           var dataObj = JSON.parse(evt.data);
           console.log('recebi: ' + evt.data);
           if (dataObj.message == 'Home') {
+            CodQrCode = dataObj.token;
             new QRCode(document.getElementById("qrcodeDiv"), dataObj.token);
 
             var data = { userId: 1, message: 'Entrando' }
             ws.send(JSON.stringify(data));
             //post('/home',{userId: 1});
 
+          }
+          if(dataObj.message == 'QrCode'){
+            if(CodQrCode === dataObj.QRCode){
+              if (typeof data.userId !== "undefined"){
+                post('/home',{userId:data.userId})
+              }else{
+                console.log('userid não informado.')
+              }
+            }else{
+              console.log('qrcode não compativel: '+dataObj.QRCode)
+            }
           }
         };
         ws.onclose = function () {

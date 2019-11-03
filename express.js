@@ -58,7 +58,7 @@ app.use(bodyParser.json())
 
 
 app.use(express.static(__dirname + '/views'));
-app.use('/home',express.static(__dirname + '/views'));
+app.use('/home', express.static(__dirname + '/views'));
 
 app.use(session({
     name: SESS_NAME,
@@ -99,11 +99,12 @@ app.post('/', (req, res) => {
     })
 })
 app.get('/home', redirectLogin, (req, res) => {
-    
-        const { user } = res.locals
-        console.log('user: ' + user)
-        res.render('myAccountScreen.ejs')
-    
+
+    const { user } = res.locals
+    console.log('user: ' + user)
+    var info = { userId: user };
+    res.render('myAccountScreen.ejs', { info: info })
+
 })
 
 
@@ -111,9 +112,11 @@ app.post('/home', (req, res) => {
     console.log(req.body)
     // req.session.userId = 
     var { userId } = req.body;
+    const { user } = res.locals
     if (userId) {
         req.session.userId = userId;
-        res.render('myAccountScreen.ejs')
+        var info = { userId: user };
+        res.render('myAccountScreen.ejs', { info: info })
         console.log(req.session)
     } else {
         cmd.connection.query("SELECT * FROM `UniversalBank`.`Cliente` t1 inner join `UniversalBank`.`Pessoa` t2 on t1.idPessoa = t2.idPessoa where t2.cpfPessoa = ? and t2.senhaPessoa = ?", [req.body.CPF, req.body.Senha], (err, result) => {
@@ -126,7 +129,8 @@ app.post('/home', (req, res) => {
                 } else {
                     req.session.userId = result[0].idCliente
                     console.log(result[0].idCliente)
-                    res.render('myAccountScreen.ejs')
+                    var info = { userId: result[0].idCliente };
+                    res.render('myAccountScreen.ejs', { info: info });
                     console.log(req.session)
                 }
 
@@ -187,13 +191,13 @@ app.get('/home/sustentabScreen', redirectLogin, (req, res) => {
 })
 
 
-app.get('/home/transfScreen',redirectLogin,(req, res) => {
-    var info = {status: 0}
-    res.render('transfScreen.ejs',{info: info})
-}).post('/home/transfScreen',(req,res)=>{
-    const {userId} = req.session
-    if(userId){
-        task.RealizaTransferencia(req,res,userId,'transfScreen.ejs');
+app.get('/home/transfScreen', redirectLogin, (req, res) => {
+    var info = { status: 0 }
+    res.render('transfScreen.ejs', { info: info })
+}).post('/home/transfScreen', (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        task.RealizaTransferencia(req, res, userId, 'transfScreen.ejs');
     }
 })
 
@@ -205,11 +209,11 @@ app.get('/home/myCardScreen', redirectLogin, (req, res) => {
     }
 })
 
-app.get('/home/dashCotacao',redirectLogin,(req, res) => {
-    const {userId} = req.session
-    if(userId){
-    req.body = {idCliente:userId,render:'dashCotacaoScreen.ejs'}
-    task.read_a_clientId(req,res)
+app.get('/home/dashCotacao', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'dashCotacaoScreen.ejs' }
+        task.read_a_clientId(req, res)
     }
 
 })
@@ -230,7 +234,7 @@ let seconds = data.getSeconds();
 
 var server = app.listen(port, () => console.log('Executando na porta: ' + port + ' Tempo: ' + dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + seconds))
 
-var wss = new WebSocketServer({server:server});
+var wss = new WebSocketServer({ server: server });
 wss.on('connection', function connection(ws) {
     ws.on('message', function incoming(message) {
         console.log('recebeu: %s', message);
@@ -245,8 +249,14 @@ wss.on('connection', function connection(ws) {
         else if (data.message == 'Entrando') {
             if (typeof data.userId !== "undefined") {
                 console.log('userId: ' + data.userId);
-               
+
             }
+        }
+        else if (data.message == 'Qrcode') {
+            if (typeof data.userId !== "undefined")
+                console.log('userId: ' + data.userId);
+            var data = {message: 'QrCode',QrCode:data.data,userID:data.user};
+            ws.send(JSON.stringify(data), { mask: false })
         }
     });
 });

@@ -5,6 +5,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
 
     <!-- CDN JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -39,6 +40,7 @@
             scanner.addListener('scan', function (content) {
                 alert(content);
                 console.log(content);
+                enviaQrcode(content);
             });
             Instascan.Camera.getCameras().then(function (cameras) {
 
@@ -56,18 +58,18 @@
         }
         function next() {
             scanner.stop();
-            if( typeof scanner1 !== 'undefined')
-            scanner1.stop();
+            if (typeof scanner1 !== 'undefined')
+                scanner1.stop();
             scanner1 = new Instascan.Scanner({ video: document.getElementById('webcam') });
             scanner1.addListener('scan', function (content) {
                 alert(content);
                 console.log(content);
             });
             Instascan.Camera.getCameras().then(function (cameras) {
-                
+
                 idCamera++;
 
-                if (idCamera+1 > quantidadeCam) {
+                if (idCamera + 1 > quantidadeCam) {
                     idCamera = 0;
                 }
                 console.log(cameras);
@@ -76,13 +78,43 @@
                 console.error(e);
             });
         }
+        function enviaQrcode(qrcode) {
+            if ("WebSocket" in window) {
+                var host = location.origin.replace(/^http/, 'ws')
+                var ws = new WebSocket(host);
+                //var user = document.getElementById('mydiv').innerHTML;
+                console.log(user);
+                ws.onopen = function () {
+                    var data = { message: 'Qrcode',data:qrcode, userId:user}
+                    ws.send(JSON.stringify(data));
+                };
+                // ws.onmessage = function (evt) {
+                //     var dataObj = JSON.parse(evt.data);
+                //     console.log('recebi: ' + evt.data);
+                //     if (dataObj.message == 'Home') {
+                //         new QRCode(document.getElementById("qrcodeDiv"), dataObj.token);
+
+                //         var data = { userId: 1, message: 'Entrando' }
+                //         ws.send(JSON.stringify(data));
+                //         //post('/home',{userId: 1});
+
+                //     }
+                // };
+                ws.onclose = function () {
+                    console.log("Connection is closed...");
+                };
+            } else {
+                alert("WebSocket NOT supported by your Browser!");
+            }
+        }
 
     </script>
-
+    
     <title>UniversalBank | Minha Conta</title>
 </head>
 
 <body>
+    <div id="mydiv" style="display: none;"><%= info.userId %></div>
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" style="font-family: 'Condiment', cursive; font-size: 22px;" href="/home"
             href="https://fonts.googleapis.com/css?family=Condiment&display=swap">UniversalBank</a>
@@ -248,6 +280,7 @@
             <p style="color: rgb(17, 17, 71); font-size:10px;">.</p>
         </div>
     </div>
+    <script>var user = document.getElementById('mydiv').innerHTML;</script>
 </body>
 
 </html>
