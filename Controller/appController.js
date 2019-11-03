@@ -12,30 +12,30 @@ exports.list_all_tasks = (req, res) => {
         res.send(task);
     })
 }
-exports.DoLogin = (req,res)=>{
-    var login = {cpf:req.body.cpf,senha:req.body.senha};
-    if(!login){
-        res.status(400).send({message:'Campos estão incorretos.'})
-    }else{
-        Cliente.getLogin(login,(err,message)=>{
-            if(err){
+exports.DoLogin = (req, res) => {
+    var login = { cpf: req.body.cpf, senha: req.body.senha };
+    if (!login) {
+        res.status(400).send({ message: 'Campos estão incorretos.' })
+    } else {
+        Cliente.getLogin(login, (err, message) => {
+            if (err) {
                 res.status(400).send(err);
-            }else{
+            } else {
                 res.json(message);
             }
 
         })
     }
 }
-exports.Pega15DiasTransacao = (req,res)=>{
-    var login = {cpf:req.body.cpf,data:req.body.data};
-    if(!login){
-        res.status(400).send({message:'Campos estão incorretos.'})
-    }else{
-        Transf.List15Dias(login,(err,message)=>{
-            if(err){
+exports.Pega15DiasTransacao = (req, res) => {
+    var login = { cpf: req.body.cpf, data: req.body.data };
+    if (!login) {
+        res.status(400).send({ message: 'Campos estão incorretos.' })
+    } else {
+        Transf.List15Dias(login, (err, message) => {
+            if (err) {
                 res.status(400).send(err);
-            }else{
+            } else {
                 res.json(message);
             }
         })
@@ -71,26 +71,27 @@ exports.read_a_clientId = (req, res) => {
                 res.status(400).send('Id incorreto.')
             } else {
                 var cliente = task[0];
-                if(req.body.render === 'sustentabScreen.ejs' || req.body.render === 'dashTransfScreen.ejs'){
+                if (req.body.render === 'sustentabScreen.ejs' || req.body.render === 'dashTransfScreen.ejs') {
                     var datas = [];
                     var valores = [];
-                    Cliente.getTotalTransf(getclient.idCliente,(err,result)=>{
-                        if(err){
-                            console.log("error: ",err);
+                    Cliente.getTotalTransf(getclient.idCliente, (err, result) => {
+                        if (err) {
+                            console.log("error: ", err);
                             res.status(400).send(err)
 
-                        }else{
-                            result.forEach(function(valor){
+                        } else {
+                            result.forEach(function (valor) {
                                 datas.push(months[valor.mes]);
                                 valores.push(valor.total);
                             })
-                            var info = {nomeP: cliente.nomePessoa, datas: datas, valores: valores
+                            var info = {
+                                nomeP: cliente.nomePessoa, datas: datas, valores: valores
 
                             };
                             res.render(req.body.render, { info: info })
                         }
                     })
-                }else{
+                } else {
                     var info = {
                         id: cliente.idCliente, saldo: formataDinheiro(cliente.saldoCliente), credito: formataDinheiro(cliente.creditoCliente), codcartao: cliente.codigoCartao.replace(/(\d{4}(?!\s))/g, "$1 "), nome: cliente.nomeCartao, dataven: cliente.dataVencimentoCartao.getMonth() + "/" + cliente.dataVencimentoCartao.getFullYear(),
                         nomeP: cliente.nomePessoa
@@ -135,7 +136,7 @@ exports.createPessoa = (req, res) => {
                         res.status(400).send(erro);
                     } else {
                         if (resposta !== undefined) {
-                            var newCliente = new Cliente({ saldoCliente: newPessoa.salarioPessoa, creditoCliente: newPessoa.salarioPessoa * 2, tipoContaCliente: 1, agenciaCliente: 1000, contaCliente: 1000, idPessoa: resposta })
+                            var newCliente = new Cliente({ saldoCliente: newPessoa.salarioPessoa, creditoCliente: newPessoa.salarioPessoa * 2, tipoContaCliente: verificaSalario(newPessoa.salarioPessoa), agenciaCliente: 1000, contaCliente: 1000, idPessoa: resposta })
                             Cliente.createCliente(newCliente, (err, cliente) => {
                                 if (err) {
                                     res.status(400).send(err);
@@ -170,6 +171,18 @@ exports.createPessoa = (req, res) => {
             }
         })
     }
+    // função para alterar o tipo de conta conforme salario do cliente.
+    function verificaSalario(int) {
+        var temporaria
+        salarioV = newPessoa.salarioPessoa
+        if (salarioV <= 200000)
+            temporaria = 1
+        else if (salarioV > 200000 && salarioV <= 1000000)
+            temporaria = 2
+        else
+            temporaria = 3
+        return temporaria
+    }
 }
 
 exports.list_all_pessoas = (req, res) => {
@@ -181,62 +194,62 @@ exports.list_all_pessoas = (req, res) => {
     })
 }
 
-exports.RealizaTransferencia = (req,res,idUser,view)=>{
+exports.RealizaTransferencia = (req, res, idUser, view) => {
     console.log(req.body)
-    Transf.ChecaExisteRecebedor(req.body.cpfPessoa,req.body.nomePessoa,(err,idPessoa)=>{
-        if(err){
+    Transf.ChecaExisteRecebedor(req.body.cpfPessoa, req.body.nomePessoa, (err, idPessoa) => {
+        if (err) {
             res.status(400).send(err);
         }
-        if(idPessoa !== undefined){
-            if(!isInt(idPessoa)){
-                var info = {status: 2,message:'Pessoa informada não existe.'}
-                res.render(view,{info:info});
-            }else{
+        if (idPessoa !== undefined) {
+            if (!isInt(idPessoa)) {
+                var info = { status: 2, message: 'Pessoa informada não existe.' }
+                res.render(view, { info: info });
+            } else {
                 Cliente.getIdClient(idPessoa, (err, idCliente) => {
-                    if(err){
+                    if (err) {
                         res.status(400).send(err);
-                    }else{
+                    } else {
                         if (idCliente !== undefined) {
-                            var newTransf = new Transf({valorTransacao:req.body.transfValor ,dataTransacao:new Date(), descricaoTransacao:"Transferencia", idCliente:idUser, tipoTransacao:1, idRecebedorTransacao:idCliente, agenciaTransacao:1000, contaTransacao: 100000})
-                            Transf.FazTransfencia(newTransf,(err,result)=>{
-                                if(err){
+                            var newTransf = new Transf({ valorTransacao: req.body.transfValor, dataTransacao: new Date(), descricaoTransacao: "Transferencia", idCliente: idUser, tipoTransacao: 1, idRecebedorTransacao: idCliente, agenciaTransacao: 1000, contaTransacao: 100000 })
+                            Transf.FazTransfencia(newTransf, (err, result) => {
+                                if (err) {
                                     res.send(err);
                                     console.log(err);
-                                }else{
-                                    if(result==="Processado com sucesso!"){
-                                        var info = {status: 1}
-                                        res.render(view,{info:info});
-                                    }else if(result==="Saldo insuficiente."){
-                                        var info = {status: 2,message:'Você não tem saldo suficiente para essa Transferência.'}
-                                        res.render(view,{info:info});
+                                } else {
+                                    if (result === "Processado com sucesso!") {
+                                        var info = { status: 1 }
+                                        res.render(view, { info: info });
+                                    } else if (result === "Saldo insuficiente.") {
+                                        var info = { status: 2, message: 'Você não tem saldo suficiente para essa Transferência.' }
+                                        res.render(view, { info: info });
                                     }
-                                    else{
-                                        console.log(result+"\n"+err)
+                                    else {
+                                        console.log(result + "\n" + err)
                                         res.status(400).send(result);
                                     }
                                 }
-                                
+
                             })
                         }
                     }
                 })
             }
-            
+
         }
     })
 }
-var months =['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out','Nov','Dez']
+var months = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
 
 function formataDinheiro(int) {
     //return n.toFixed(0).replace('.', ',').replace(/(\d)(?=(\d{3})+\,)/g, "$1.");
-    var tmp = int+'';
-        tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
-        if( tmp.length > 6 )
-                tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
+    var tmp = int + '';
+    tmp = tmp.replace(/([0-9]{2})$/g, ",$1");
+    if (tmp.length > 6)
+        tmp = tmp.replace(/([0-9]{3}),([0-9]{2}$)/g, ".$1,$2");
 
-        return tmp;
+    return tmp;
 }
 function isInt(value) {
     var x = parseFloat(value);
     return !isNaN(value) && (x | 0) === x;
-  }
+}
