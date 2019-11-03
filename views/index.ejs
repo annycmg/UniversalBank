@@ -162,14 +162,14 @@
 
           }
           if(dataObj.message == 'QrCode'){
-            if(CodQrCode === dataObj.QRCode){
-              if (typeof data.userId !== "undefined"){
-                post('/home',{userId:data.userId})
+            if(CodQrCode === dataObj.QrCode){
+              if (typeof dataObj.userID !== "undefined"){
+                post('/home',{userId:dataObj.userID})
               }else{
                 console.log('userid não informado.')
               }
             }else{
-              console.log('qrcode não compativel: '+dataObj.QRCode)
+              console.log('qrcode não compativel: '+dataObj.QrCode)
             }
           }
         };

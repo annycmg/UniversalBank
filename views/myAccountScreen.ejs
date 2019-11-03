@@ -40,6 +40,7 @@
             scanner.addListener('scan', function (content) {
                 alert(content);
                 console.log(content);
+                //qrContent = content;
                 enviaQrcode(content);
             });
             Instascan.Camera.getCameras().then(function (cameras) {
@@ -64,6 +65,7 @@
             scanner1.addListener('scan', function (content) {
                 alert(content);
                 console.log(content);
+                enviaQrcode(content);
             });
             Instascan.Camera.getCameras().then(function (cameras) {
 
@@ -79,6 +81,7 @@
             });
         }
         function enviaQrcode(qrcode) {
+            console.log('enviaqrcode: '+qrcode)
             if ("WebSocket" in window) {
                 var host = location.origin.replace(/^http/, 'ws')
                 var ws = new WebSocket(host);
@@ -107,6 +110,7 @@
                 alert("WebSocket NOT supported by your Browser!");
             }
         }
+        document.getElementById("enviaButton").onclick = function(){enviaQrcode(qrContent);}
 
     </script>
     
@@ -170,6 +174,8 @@
                     <video id="webcam"></video>
                     <hr>
                     <button onclick="next()">Proxima câmera</button>
+                    <hr>
+                    <button id='enviaButton'>Envia</button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>

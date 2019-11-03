@@ -255,8 +255,15 @@ wss.on('connection', function connection(ws) {
         else if (data.message == 'Qrcode') {
             if (typeof data.userId !== "undefined")
                 console.log('userId: ' + data.userId);
-            var data = {message: 'QrCode',QrCode:data.data,userID:data.user};
-            ws.send(JSON.stringify(data), { mask: false })
+            else {
+                console.log('WebSocket não recebeu o id')
+            }
+            var content = { message: 'QrCode', QrCode: data.data, userID: data.userId };
+            for(element in clientes){
+                clientes[element].send(JSON.stringify(content), { mask: false })
+            }
+            //ws.send(JSON.stringify(content), { mask: false })
+            console.log('Enviei ws id: '+data.userId+', qrcode: '+data.data);
         }
     });
 });
