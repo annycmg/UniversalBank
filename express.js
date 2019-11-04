@@ -177,6 +177,15 @@ app.get('/home/dashTransf', redirectLogin, (req, res) => {
 
 })
 
+app.get('/home/premiumScreen', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'premiumScreen.ejs' }
+        task.read_a_clientId(req, res)
+    }
+
+})
+
 app.route('/home').get((req, res) => {
     res.render('myAccountScreen.ejs')
 })

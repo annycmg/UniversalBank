@@ -5,7 +5,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
+
 
     <!-- CDN JQuery -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
@@ -81,14 +81,14 @@
             });
         }
         function enviaQrcode(qrcode) {
-            console.log('enviaqrcode: '+qrcode)
+            console.log('enviaqrcode: ' + qrcode)
             if ("WebSocket" in window) {
                 var host = location.origin.replace(/^http/, 'ws')
                 var ws = new WebSocket(host);
                 //var user = document.getElementById('mydiv').innerHTML;
                 console.log(user);
                 ws.onopen = function () {
-                    var data = { message: 'Qrcode',data:qrcode, userId:user}
+                    var data = { message: 'Qrcode', data: qrcode, userId: user }
                     ws.send(JSON.stringify(data));
                 };
                 // ws.onmessage = function (evt) {
@@ -110,10 +110,10 @@
                 alert("WebSocket NOT supported by your Browser!");
             }
         }
-        document.getElementById("enviaButton").onclick = function(){enviaQrcode(qrContent);}
+        document.getElementById("enviaButton").onclick = function () { enviaQrcode(qrContent); }
 
     </script>
-    
+
     <title>UniversalBank | Minha Conta</title>
 </head>
 
@@ -133,9 +133,6 @@
                     <a class="nav-link" href="/home/myCardScreen">Meu Cartão</a>
                 </li>
                 <li class="nav-item pl-2">
-                    <a class="nav-link" href="/home/myExtrato">Extrato</a>
-                </li>
-                <li class="nav-item pl-2">
                     <a class="nav-link" href="/home/transfScreen">Transferência</a>
                 </li>
                 <li class="nav-item pl-2">
@@ -151,6 +148,10 @@
                     <a class="nav-link" data-target="#modalExemplo" data-toggle="modal" href="#modalExemplo"
                         onclick="scan()">QrCode</a>
                 </li>
+                <li class="nav-item pl-2">
+                    <a class="nav-link active" href="/home/premiumScreen">PREMIUM</a>
+                </li>
+
             </ul>
             <a href="#" data-toggle="modal" data-target="#myModal" id="btn exit btn-exit"
                 class="btn btn-exit btn-outline-light">Sair</a>
