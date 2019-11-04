@@ -155,7 +155,7 @@ exports.createPessoa = (req, res) => {
                                                     if (err) {
                                                         res.status(400).send(err);
                                                     } else {
-                                                        res.send('Usuário criado com sucesso!');
+                                                        res.render('cadastroFeito');
                                                     }
                                                 })
                                             } else {
