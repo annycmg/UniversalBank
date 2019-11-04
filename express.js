@@ -52,7 +52,7 @@ const redirectHome = (req, res, next) => {
 }
 
 
-//Parte do site
+//Parte do site -
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 

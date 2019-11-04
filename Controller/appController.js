@@ -171,7 +171,7 @@ exports.createPessoa = (req, res) => {
             }
         })
     }
-    // função para alterar o tipo de conta conforme salario do cliente..
+    // função para alterar o tipo de conta conforme salario do cliente...
     function verificaSalario(int) {
         var temporaria
         salarioV = newPessoa.salarioPessoa
