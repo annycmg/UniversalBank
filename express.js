@@ -231,7 +231,7 @@ app.route('/home/myExtrato').get((req, res) => {
     res.render('myExtratoScreen.ejs')
 })
 
-//Api
+//Api-
 app.use('/api', router)
 let data = new Date();
 let dia = ("0" + data.getDate()).slice(-2);
