@@ -24,7 +24,7 @@ const uuidv1 = require('uuid/v1');
 
 var clientes = {};
 
-//
+//-
 const {
     SESS_LIFETIME = 1000 * 60 * 60 * 1,
     NODE_ENV = 'development',
