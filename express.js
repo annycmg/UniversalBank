@@ -199,6 +199,24 @@ app.get('/home/sustentabScreen', redirectLogin, (req, res) => {
 
 })
 
+app.get('/home/myAccountScreenTipo1', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'myAccountScreenTipo1' }
+        task.read_a_clientId(req, res)
+    }
+
+})
+
+app.get('/home/myAccountScreenTipo3', redirectLogin, (req, res) => {
+    const { userId } = req.session
+    if (userId) {
+        req.body = { idCliente: userId, render: 'myAccountScreenTipo3' }
+        task.read_a_clientId(req, res)
+    }S
+
+})
+
 
 app.get('/home/transfScreen', redirectLogin, (req, res) => {
     var info = { status: 0 }
@@ -268,11 +286,11 @@ wss.on('connection', function connection(ws) {
                 console.log('WebSocket não recebeu o id')
             }
             var content = { message: 'QrCode', QrCode: data.data, userID: data.userId };
-            for(element in clientes){
+            for (element in clientes) {
                 clientes[element].send(JSON.stringify(content), { mask: false })
             }
             //ws.send(JSON.stringify(content), { mask: false })
-            console.log('Enviei ws id: '+data.userId+', qrcode: '+data.data);
+            console.log('Enviei ws id: ' + data.userId + ', qrcode: ' + data.data);
         }
     });
 });
