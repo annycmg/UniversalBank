@@ -1,3 +1,4 @@
+
 const express = require('express')
 const session = require('express-session')
 //servidor
@@ -103,6 +104,7 @@ app.get('/home', redirectLogin, (req, res) => {
     const { user } = res.locals
     console.log('user: ' + user)
     var info = { userId: user };
+
     res.render('myAccountScreen.ejs', { info: info })
 
 })
@@ -113,9 +115,12 @@ app.post('/home', (req, res) => {
     // req.session.userId = 
     var { userId } = req.body;
     const { user } = res.locals
+
     if (userId) {
         req.session.userId = userId;
-        var info = { userId: user };
+        var info = { userId: user }
+
+
         res.render('myAccountScreen.ejs', { info: info })
         console.log(req.session)
     } else {
@@ -130,7 +135,14 @@ app.post('/home', (req, res) => {
                     req.session.userId = result[0].idCliente
                     console.log(result[0].idCliente)
                     var info = { userId: result[0].idCliente };
-                    res.render('myAccountScreen.ejs', { info: info });
+                    if(result[0].tipoContaCliente === "1"){
+                        res.render('myAccountScreenTipo1.ejs', { info: info });
+                    }else if(result[0].tipoContaCliente === "2"){
+                        res.render('myAccountScreen.ejs', { info: info });
+                    }else{
+                        res.render('myAccountScreenTipo3.ejs', { info: info });
+                    }
+                    //res.render('myAccountScreen.ejs', { info: info });
                     console.log(req.session)
                 }
 
