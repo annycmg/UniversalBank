@@ -85,7 +85,7 @@ exports.read_a_clientId = (req, res) => {
                                 valores.push(valor.total);
                             })
                             var info = {
-                                nomeP: cliente.nomePessoa, datas: datas, valores: valores, tipoConta: cliente.tipoContaCliente
+                                nomeP: cliente.nomePessoa, datas: datas, valores: valores, tipoConta: cliente.tipoContaCliente, qtdTransf: result.length
 
                             };
                             res.render(req.body.render, { info: info })
